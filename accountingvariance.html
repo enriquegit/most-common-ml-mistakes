@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Mistake 8: Not accounting for variance | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM</title>
+  <meta name="description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Mistake 8: Not accounting for variance | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/images/cover.jpg" />
+  <meta property="og:description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Mistake 8: Not accounting for variance | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
+  
+  <meta name="twitter:description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
+  <meta name="twitter:image" content="/images/cover.jpg" />
+
+<meta name="author" content="Enrique Garcia Ceja" />
+
+
+<meta name="date" content="2025-06-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="notbaseline.html"/>
+<link rel="next" href="datainjection.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0JKZ260BD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X0JKZ260BD');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="#">MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i>About the Author</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="dedication.html"><a href="dedication.html"><i class="fa fa-check"></i>Dedication</a></li>
+<li class="chapter" data-level="" data-path="protecting-the-neural-tree.html"><a href="protecting-the-neural-tree.html"><i class="fa fa-check"></i>Protecting the Neural Tree</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#supplemental-material"><i class="fa fa-check"></i>Supplemental Material</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#conventions"><i class="fa fa-check"></i>Conventions</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="notunderstandingdata.html"><a href="notunderstandingdata.html"><i class="fa fa-check"></i><b>1</b> Not understanding the data</a></li>
+<li class="chapter" data-level="2" data-path="trainperformance.html"><a href="trainperformance.html"><i class="fa fa-check"></i><b>2</b> Reporting train performance</a></li>
+<li class="chapter" data-level="3" data-path="settingseed.html"><a href="settingseed.html"><i class="fa fa-check"></i><b>3</b> Not setting a seed value</a></li>
+<li class="chapter" data-level="4" data-path="irrelevantfeatures.html"><a href="irrelevantfeatures.html"><i class="fa fa-check"></i><b>4</b> Including irrelevant features</a></li>
+<li class="chapter" data-level="5" data-path="usingtestset.html"><a href="usingtestset.html"><i class="fa fa-check"></i><b>5</b> Using the test set for fine tunning</a></li>
+<li class="chapter" data-level="6" data-path="onlyaccuracy.html"><a href="onlyaccuracy.html"><i class="fa fa-check"></i><b>6</b> Only reporting accuracy</a></li>
+<li class="chapter" data-level="7" data-path="notbaseline.html"><a href="notbaseline.html"><i class="fa fa-check"></i><b>7</b> Not comparing against a baseline</a></li>
+<li class="chapter" data-level="8" data-path="accountingvariance.html"><a href="accountingvariance.html"><i class="fa fa-check"></i><b>8</b> Not accounting for variance</a></li>
+<li class="chapter" data-level="9" data-path="datainjection.html"><a href="datainjection.html"><i class="fa fa-check"></i><b>9</b> Injecting data into the test set</a></li>
+<li class="chapter" data-level="10" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>10</b> Not shuffling the training data</a></li>
+<li class="chapter" data-level="11" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>11</b> Not saving the results</a></li>
+<li class="chapter" data-level="12" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>12</b> Not parallelizing</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appendixInstall.html"><a href="appendixInstall.html"><i class="fa fa-check"></i><b>A</b> Setup Your Environment</a></li>
+<li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appendixDatasets.html"><a href="appendixDatasets.html#california-housing"><i class="fa fa-check"></i><b>B.1</b> CALIFORNIA-HOUSING</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.2</b> DIGITS</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.3</b> IRIS</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.4</b> WINE</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.5</b> WISDM</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="citing-this-book.html"><a href="citing-this-book.html"><i class="fa fa-check"></i>Citing this Book</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="accountingvariance" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Mistake 8:</span> Not accounting for variance<a href="accountingvariance.html#accountingvariance" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+
+<div class="rmdmistake">
+Not accounting for variance when comparing different models can lead to wrong conclusions.
+</div>
+<p></br></p>
+<p>Before deploying a model into production, you want to be sure you are using the best model for your given use case. In order to find this best model, you may want to compare between different alternatives. To demonstrate this idea, I will use the <em>DIGITS</em> dataset which consists of <span class="math inline">\(8x8\)</span> images flattened into a feature vector of length <span class="math inline">\(64\)</span>. Each feature consists of an integer between <span class="math inline">\(0-16\)</span> representing the pixel intensity. Figure <a href="accountingvariance.html#fig:digit">8.1</a> shows the first digit with class <em>‘0’</em>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:digit"></span>
+<img src="images/digit.png" alt="Digit 0" width="30%" />
+<p class="caption">
+Figure 8.1: Digit 0
+</p>
+</div>
+<p>Let’s compare a <code>DecisionTreeClassifier</code> versus a <code>GaussianNB</code> to decide which one is better for digits classification. For the sake of simplicity, I will only use accuracy as the performance metric.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb30-1"><a href="accountingvariance.html#cb30-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb30-2"><a href="accountingvariance.html#cb30-2"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_digits</span>
+<span id="cb30-3"><a href="accountingvariance.html#cb30-3"></a>data <span class="op">=</span> load_digits()</span>
+<span id="cb30-4"><a href="accountingvariance.html#cb30-4"></a></span>
+<span id="cb30-5"><a href="accountingvariance.html#cb30-5"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb30-6"><a href="accountingvariance.html#cb30-6"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(data.data,</span>
+<span id="cb30-7"><a href="accountingvariance.html#cb30-7"></a>                                                    data.target,</span>
+<span id="cb30-8"><a href="accountingvariance.html#cb30-8"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span id="cb30-9"><a href="accountingvariance.html#cb30-9"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb30-10"><a href="accountingvariance.html#cb30-10"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb30-11"><a href="accountingvariance.html#cb30-11"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> GaussianNB</span>
+<span id="cb30-12"><a href="accountingvariance.html#cb30-12"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb30-13"><a href="accountingvariance.html#cb30-13"></a></span>
+<span id="cb30-14"><a href="accountingvariance.html#cb30-14"></a>tree <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">1234</span>)</span>
+<span id="cb30-15"><a href="accountingvariance.html#cb30-15"></a>bayes <span class="op">=</span> GaussianNB()</span>
+<span id="cb30-16"><a href="accountingvariance.html#cb30-16"></a></span>
+<span id="cb30-17"><a href="accountingvariance.html#cb30-17"></a>tree.fit(X_train, y_train)</span>
+<span id="cb30-18"><a href="accountingvariance.html#cb30-18"></a>bayes.fit(X_train, y_train)</span>
+<span id="cb30-19"><a href="accountingvariance.html#cb30-19"></a></span>
+<span id="cb30-20"><a href="accountingvariance.html#cb30-20"></a>predictions_tree <span class="op">=</span> tree.predict(X_test)</span>
+<span id="cb30-21"><a href="accountingvariance.html#cb30-21"></a>predictions_bayes <span class="op">=</span> bayes.predict(X_test)</span>
+<span id="cb30-22"><a href="accountingvariance.html#cb30-22"></a></span>
+<span id="cb30-23"><a href="accountingvariance.html#cb30-23"></a><span class="bu">print</span>(<span class="ss">f&quot;Decision Tree accuracy: </span><span class="sc">{</span>accuracy_score(y_test, predictions_tree)<span class="sc">:.3f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb30-24"><a href="accountingvariance.html#cb30-24"></a><span class="bu">print</span>(<span class="ss">f&quot;GaussianNB accuracy: </span><span class="sc">{</span>accuracy_score(y_test, predictions_bayes)<span class="sc">:.3f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb31-1"><a href="accountingvariance.html#cb31-1" tabindex="-1"></a><span class="co">#&gt;&gt; Decision Tree accuracy: 0.844</span></span>
+<span id="cb31-2"><a href="accountingvariance.html#cb31-2" tabindex="-1"></a><span class="co">#&gt;&gt; GaussianNB accuracy: 0.778</span></span></code></pre></div>
+<p>According to those results you may conclude that <code>DecisionTreeClassifier</code> is the best choice. However, it may be the case that if the initial conditions change a little bit (e.g., a slightly different training set), you could get completely different results. And in fact, if you change <code>random_state=1234</code> to <code>random_state=123</code> in <code>train_test_split()</code> this time <code>GaussianNB</code> performs better. This is called <em>variance</em>. That is, the results vary from run to run. Then, how can you decide which model is better in the long run? One way is to repeat the experiment several times and select the model that performs better on average. Every time you run the experiment, you randomly partition the train and test sets. In this way, every experiment will have a slightly different train and test sets. This procedure is called <em>Monte Carlo cross-validation</em>. The following code runs <span class="math inline">\(500\)</span> iterations and computes the average accuracy.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb32-1"><a href="accountingvariance.html#cb32-1"></a>n <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb32-2"><a href="accountingvariance.html#cb32-2"></a>accuracy_tree <span class="op">=</span> []</span>
+<span id="cb32-3"><a href="accountingvariance.html#cb32-3"></a>accuracy_bayes <span class="op">=</span> []</span>
+<span id="cb32-4"><a href="accountingvariance.html#cb32-4"></a></span>
+<span id="cb32-5"><a href="accountingvariance.html#cb32-5"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb32-6"><a href="accountingvariance.html#cb32-6"></a>    X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(data.data,</span>
+<span id="cb32-7"><a href="accountingvariance.html#cb32-7"></a>                                                    data.target,</span>
+<span id="cb32-8"><a href="accountingvariance.html#cb32-8"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span id="cb32-9"><a href="accountingvariance.html#cb32-9"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span> <span class="op">+</span> i)</span>
+<span id="cb32-10"><a href="accountingvariance.html#cb32-10"></a>    tree <span class="op">=</span> DecisionTreeClassifier(random_state<span class="op">=</span><span class="dv">123</span>)</span>
+<span id="cb32-11"><a href="accountingvariance.html#cb32-11"></a>    bayes <span class="op">=</span> GaussianNB()</span>
+<span id="cb32-12"><a href="accountingvariance.html#cb32-12"></a>    </span>
+<span id="cb32-13"><a href="accountingvariance.html#cb32-13"></a>    tree.fit(X_train, y_train)</span>
+<span id="cb32-14"><a href="accountingvariance.html#cb32-14"></a>    bayes.fit(X_train, y_train)</span>
+<span id="cb32-15"><a href="accountingvariance.html#cb32-15"></a>    predictions_tree <span class="op">=</span> tree.predict(X_test)</span>
+<span id="cb32-16"><a href="accountingvariance.html#cb32-16"></a>    predictions_bayes <span class="op">=</span> bayes.predict(X_test)</span>
+<span id="cb32-17"><a href="accountingvariance.html#cb32-17"></a>    accuracy_tree.append(accuracy_score(y_test, predictions_tree))</span>
+<span id="cb32-18"><a href="accountingvariance.html#cb32-18"></a>    accuracy_bayes.append(accuracy_score(y_test, predictions_bayes))</span>
+<span id="cb32-19"><a href="accountingvariance.html#cb32-19"></a>    </span>
+<span id="cb32-20"><a href="accountingvariance.html#cb32-20"></a><span class="bu">print</span>(<span class="ss">f&quot;Decision Tree accuracy: </span><span class="sc">{</span>np<span class="sc">.</span>mean(accuracy_tree)<span class="sc">:.3f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb32-21"><a href="accountingvariance.html#cb32-21"></a><span class="bu">print</span>(<span class="ss">f&quot;GaussianNB accuracy: </span><span class="sc">{</span>np<span class="sc">.</span>mean(accuracy_bayes)<span class="sc">:.3f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb33-1"><a href="accountingvariance.html#cb33-1" tabindex="-1"></a><span class="co">#&gt;&gt; Decision Tree accuracy: 0.829</span></span>
+<span id="cb33-2"><a href="accountingvariance.html#cb33-2" tabindex="-1"></a><span class="co">#&gt;&gt; GaussianNB accuracy: 0.837</span></span></code></pre></div>
+<p>Here, we can see that <code>GaussianNB</code> is better on average, contrary to what we thought by only running the experiment one iteration.</p>
+
+<div class="rmdcaution">
+Note that it is important to change the random state in <code>train_test_split()</code> in each iteration (<code>random_state = 123 + i</code>). Otherwise the train and test sets will be the same.
+</div>
+<p>Figure <a href="accountingvariance.html#fig:histogram-dt-nb">8.2</a> shows a histogram of the accuracies. Here, we can see that there is some overlap between the two models but on average, <code>GaussianNB</code> is better.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:histogram-dt-nb"></span>
+<img src="images/histogram_dt-bayes.png" alt="Histogram of accuracy." width="70%" />
+<p class="caption">
+Figure 8.2: Histogram of accuracy.
+</p>
+</div>
+<p>The difference between the models’ accuracies can be further validated with a paired t-test.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb34-1"><a href="accountingvariance.html#cb34-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_rel</span>
+<span id="cb34-2"><a href="accountingvariance.html#cb34-2"></a>t_stat, p_value <span class="op">=</span> ttest_rel(accuracy_tree, accuracy_bayes)</span>
+<span id="cb34-3"><a href="accountingvariance.html#cb34-3"></a><span class="bu">print</span>(<span class="ss">f&quot;p-value: </span><span class="sc">{</span>p_value<span class="sc">:.10f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb35-1"><a href="accountingvariance.html#cb35-1" tabindex="-1"></a><span class="co">#&gt;&gt; p-value: 0.0000000054</span></span></code></pre></div>
+<p>In this example we used Monte Carlo cross-validation to robustly compare two models. However, you should also account for variance when tuning a model’s hyper-parameters, choosing pre-processing methods, data transformations, etc.</p>
+</br>
+
+<div class="rmdsolution">
+To account for variance in your results, you can use Monte Carlo cross-validation. This will allow you to generate more confident results and stronger conclusions.
+</div>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="notbaseline.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="datainjection.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
