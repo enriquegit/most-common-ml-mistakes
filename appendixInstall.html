@@ -23,14 +23,14 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-01" />
+<meta name="date" content="2025-06-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="notparallelizing.html"/>
+<link rel="prev" href="wastingunlabeled.html"/>
 <link rel="next" href="appendixDatasets.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -192,14 +192,19 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="trainperformance.html"><a href="trainperformance.html"><i class="fa fa-check"></i><b>2</b> Reporting train performance</a></li>
 <li class="chapter" data-level="3" data-path="settingseed.html"><a href="settingseed.html"><i class="fa fa-check"></i><b>3</b> Not setting a seed value</a></li>
 <li class="chapter" data-level="4" data-path="irrelevantfeatures.html"><a href="irrelevantfeatures.html"><i class="fa fa-check"></i><b>4</b> Including irrelevant features</a></li>
-<li class="chapter" data-level="5" data-path="usingtestset.html"><a href="usingtestset.html"><i class="fa fa-check"></i><b>5</b> Using the test set for fine tunning</a></li>
-<li class="chapter" data-level="6" data-path="onlyaccuracy.html"><a href="onlyaccuracy.html"><i class="fa fa-check"></i><b>6</b> Only reporting accuracy</a></li>
-<li class="chapter" data-level="7" data-path="notbaseline.html"><a href="notbaseline.html"><i class="fa fa-check"></i><b>7</b> Not comparing against a baseline</a></li>
-<li class="chapter" data-level="8" data-path="accountingvariance.html"><a href="accountingvariance.html"><i class="fa fa-check"></i><b>8</b> Not accounting for variance</a></li>
-<li class="chapter" data-level="9" data-path="datainjection.html"><a href="datainjection.html"><i class="fa fa-check"></i><b>9</b> Injecting data into the test set</a></li>
-<li class="chapter" data-level="10" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>10</b> Not shuffling the training data</a></li>
-<li class="chapter" data-level="11" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>11</b> Not saving the results</a></li>
-<li class="chapter" data-level="12" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>12</b> Not parallelizing</a></li>
+<li class="chapter" data-level="5" data-path="ignoringscales.html"><a href="ignoringscales.html"><i class="fa fa-check"></i><b>5</b> Ignoring differences in scales</a></li>
+<li class="chapter" data-level="6" data-path="usingtestset.html"><a href="usingtestset.html"><i class="fa fa-check"></i><b>6</b> Using the test set for fine tunning</a></li>
+<li class="chapter" data-level="7" data-path="onlyaccuracy.html"><a href="onlyaccuracy.html"><i class="fa fa-check"></i><b>7</b> Only reporting accuracy</a></li>
+<li class="chapter" data-level="8" data-path="notbaseline.html"><a href="notbaseline.html"><i class="fa fa-check"></i><b>8</b> Not comparing against a baseline</a></li>
+<li class="chapter" data-level="9" data-path="accountingvariance.html"><a href="accountingvariance.html"><i class="fa fa-check"></i><b>9</b> Not accounting for variance</a></li>
+<li class="chapter" data-level="10" data-path="datainjection.html"><a href="datainjection.html"><i class="fa fa-check"></i><b>10</b> Injecting data into the test set</a></li>
+<li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
+<li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
+<li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
+<li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
+<li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appendixInstall.html"><a href="appendixInstall.html"><i class="fa fa-check"></i><b>A</b> Setup Your Environment</a></li>
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
@@ -229,7 +234,7 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="appendixInstall" class="section level1 hasAnchor" number="13">
+<div id="appendixInstall" class="section level1 hasAnchor" number="18">
 <h1><span class="header-section-number">A</span> Setup Your Environment<a href="appendixInstall.html#appendixInstall" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The examples in this book were tested with Python 3.12.7 within an Anaconda <span class="citation">(<a href="#ref-anaconda">Jupyter Team 2025</a>)</span> environment.</p>
 <p>The source code is provided in the form of jupyter notebooks <span class="citation">(<a href="#ref-jupyter">Anaconda Team 2025</a>)</span>. Each chapter (mistake) has its own related jupyter notebook file with .ipynb extension.</p>
@@ -263,7 +268,7 @@ Jupyter Team. 2025. <em>Jupyter</em>. <a href="https://jupyter.org/">https://jup
           </div>
         </div>
       </div>
-<a href="notparallelizing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wastingunlabeled.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="appendixDatasets.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

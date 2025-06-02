@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Introduction | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM</title>
+  <title>Mistake 17: Wasting unlabeled data | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM</title>
   <meta name="description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Introduction | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
+  <meta property="og:title" content="Mistake 17: Wasting unlabeled data | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/cover.jpg" />
   <meta property="og:description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Introduction | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
+  <meta name="twitter:title" content="Mistake 17: Wasting unlabeled data | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
   
   <meta name="twitter:description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
   <meta name="twitter:image" content="/images/cover.jpg" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="preface.html"/>
-<link rel="next" href="notunderstandingdata.html"/>
+<link rel="prev" href="interuservariance.html"/>
+<link rel="next" href="appendixInstall.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -234,49 +234,21 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1 unnumbered hasAnchor">
-<h1>Introduction<a href="introduction.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Building error-free machine-learning-based systems is crucial, specially, nowadays that these systems are everywhere. From room-size servers stacked into huge buildings, to coin-size deep learning accelerators, these devices run machine learning algorithms that support daily critical operations in finance, logistics, aerospace, health, autonomous trucks/vehicles, and so on. Thus, it is our task to make sure those systems are robust, reliable, and trustworthy.</p>
-<p>During the process of building a machine learning model, there are many points in which errors can make their way in –from data data collection, to deployment. The environment (and thus the data) is continuously changing. As such, one needs to be vigilant and keep monitoring the system to protect it against potential errors.</p>
-<p>This book showcases the most common mistakes when building machine learning models during different phases. Each chapter focuses on a single mistake. For the sake of keeping the examples simple and focusing on the mistake at hand, some may incur in other mistakes. Every chapter demonstrates the corresponding mistake with code snippets and ways to avoid/correct the error. Library import statements and minor details may be omitted to keep the code simple however, the full source code of the examples is available.</p>
-<p>Before delving into the mistakes, the following subsection introduces the terminology that will be used. So, I recommend you to take a look and familiarize yourself with the terms. With the help of the <em>Science-Fish-Team</em>, let’s begin our journey against the <em>neuruptors</em>!!!</p>
-<div id="terminology" class="section level3 unnumbered hasAnchor">
-<h3>Terminology<a href="introduction.html#terminology" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In this section, I will introduce the terminology that we will use for the rest of the book.</p>
-<p>Most of the time, datasets are stored as <em>tables</em> or in Python terminology, pandas <em>data frames</em> or numpy arrays. Figure <a href="introduction.html#fig:terminology1">0.2</a> shows the classic <em>IRIS</em> dataset <span class="citation">(<a href="#ref-Fisher1936">Fisher 1936</a>)</span> stored in a pandas data frame.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:terminology1"></span>
-<img src="images/terminologyTable.png" alt="First rows of the *IRIS* dataset." width="70%" />
-<p class="caption">
-Figure 0.2: First rows of the <em>IRIS</em> dataset.
-</p>
-</div>
-<p>The columns represent <em>variables (features)</em> and the rows represent <em>examples</em> also known as <em>instances</em> or <em>data points</em>. In this table, there are <span class="math inline">\(5\)</span> variables <em>sepal length</em>, <em>sepal width</em>, <em>petal length</em>, <em>petal width</em> and the <em>class</em>. Each row represents a specific plant. In machine learning terminology, rows are more commonly called <em>instances</em> whereas in statistics they are often called <em>data points</em> or <em>observations</em>. Here, I will use those terms interchangeably.</p>
-<p>Figure <a href="introduction.html#fig:terminology2">0.3</a> shows the same data frame. Suppose that we are interested in predicting the <em>class</em> based on the other variables. In machine learning terminology, the variable of interest (the one that depends on the others) is called the <em>class</em> or <em>label</em> for classification problems. For regression, it is often referred to as <em>y</em>. In statistics, it is more commonly known as the <em>response</em>, <em>dependent</em>, or <em>y</em> variable, for both, classification and regression.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:terminology2"></span>
-<img src="images/terminologyTable2.png" alt="First rows of the*IRIS* dataset. The first four columns are the features and the last column is the class." width="70%" />
-<p class="caption">
-Figure 0.3: First rows of the<em>IRIS</em> dataset. The first four columns are the features and the last column is the class.
-</p>
-</div>
-<p>In machine learning terminology, the variables used to predict the class are called <em>features</em> or <em>attributes</em>. In statistics, they are typically referred as <em>predictors</em>, <em>independent variables</em>, or <em>X</em>. The term <strong>feature vector</strong> is used often in machine learning. A feature vector is an array containing the features of a given instance. For example, the feature vector of the first instance in Figure <a href="introduction.html#fig:terminology2">0.3</a> is <span class="math inline">\([5.1,3.5,1.4,0.2]\)</span>.</p>
-<p>Regarding algorithms, the term <em>model</em> will be used to refer to <em>classifiers</em> or <em>regression</em> models. From the context, it should be clear which one it refers to, or if both.</p>
-<p>Now that we are armed with this terminology, let’s begin fighting those <em>neuruptors</em>!!!</p>
+<div id="wastingunlabeled" class="section level1 hasAnchor" number="17">
+<h1><span class="header-section-number">Mistake 17:</span> Wasting unlabeled data<a href="wastingunlabeled.html#wastingunlabeled" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Chapter under construction…</p>
 
 </div>
-</div>
-<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-Fisher1936" class="csl-entry">
-Fisher, Ronald A. 1936. <span>“The Use of Multiple Measurements in Taxonomic Problems.”</span> <em>Annals of Eugenics</em> 7 (2): 179–88.
-</div>
-</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="preface.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="notunderstandingdata.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="interuservariance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendixInstall.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

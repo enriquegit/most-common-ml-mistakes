@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-01" />
+<meta name="date" content="2025-06-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -192,14 +192,19 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="trainperformance.html"><a href="trainperformance.html"><i class="fa fa-check"></i><b>2</b> Reporting train performance</a></li>
 <li class="chapter" data-level="3" data-path="settingseed.html"><a href="settingseed.html"><i class="fa fa-check"></i><b>3</b> Not setting a seed value</a></li>
 <li class="chapter" data-level="4" data-path="irrelevantfeatures.html"><a href="irrelevantfeatures.html"><i class="fa fa-check"></i><b>4</b> Including irrelevant features</a></li>
-<li class="chapter" data-level="5" data-path="usingtestset.html"><a href="usingtestset.html"><i class="fa fa-check"></i><b>5</b> Using the test set for fine tunning</a></li>
-<li class="chapter" data-level="6" data-path="onlyaccuracy.html"><a href="onlyaccuracy.html"><i class="fa fa-check"></i><b>6</b> Only reporting accuracy</a></li>
-<li class="chapter" data-level="7" data-path="notbaseline.html"><a href="notbaseline.html"><i class="fa fa-check"></i><b>7</b> Not comparing against a baseline</a></li>
-<li class="chapter" data-level="8" data-path="accountingvariance.html"><a href="accountingvariance.html"><i class="fa fa-check"></i><b>8</b> Not accounting for variance</a></li>
-<li class="chapter" data-level="9" data-path="datainjection.html"><a href="datainjection.html"><i class="fa fa-check"></i><b>9</b> Injecting data into the test set</a></li>
-<li class="chapter" data-level="10" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>10</b> Not shuffling the training data</a></li>
-<li class="chapter" data-level="11" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>11</b> Not saving the results</a></li>
-<li class="chapter" data-level="12" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>12</b> Not parallelizing</a></li>
+<li class="chapter" data-level="5" data-path="ignoringscales.html"><a href="ignoringscales.html"><i class="fa fa-check"></i><b>5</b> Ignoring differences in scales</a></li>
+<li class="chapter" data-level="6" data-path="usingtestset.html"><a href="usingtestset.html"><i class="fa fa-check"></i><b>6</b> Using the test set for fine tunning</a></li>
+<li class="chapter" data-level="7" data-path="onlyaccuracy.html"><a href="onlyaccuracy.html"><i class="fa fa-check"></i><b>7</b> Only reporting accuracy</a></li>
+<li class="chapter" data-level="8" data-path="notbaseline.html"><a href="notbaseline.html"><i class="fa fa-check"></i><b>8</b> Not comparing against a baseline</a></li>
+<li class="chapter" data-level="9" data-path="accountingvariance.html"><a href="accountingvariance.html"><i class="fa fa-check"></i><b>9</b> Not accounting for variance</a></li>
+<li class="chapter" data-level="10" data-path="datainjection.html"><a href="datainjection.html"><i class="fa fa-check"></i><b>10</b> Injecting data into the test set</a></li>
+<li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
+<li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
+<li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
+<li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
+<li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appendixInstall.html"><a href="appendixInstall.html"><i class="fa fa-check"></i><b>A</b> Setup Your Environment</a></li>
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
@@ -229,30 +234,30 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="appendixDatasets" class="section level1 hasAnchor" number="14">
+<div id="appendixDatasets" class="section level1 hasAnchor" number="19">
 <h1><span class="header-section-number">B</span> Datasets<a href="appendixDatasets.html#appendixDatasets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This section lists all the datasets used in this book. Each dataset specifies whether or not it is included in scikit-learn. Those that are not part of scikit-learn, are included along with the source code in the <code>data\</code> directory.</p>
-<div id="california-housing" class="section level2 hasAnchor" number="14.1">
+<div id="california-housing" class="section level2 hasAnchor" number="19.1">
 <h2><span class="header-section-number">B.1</span> CALIFORNIA-HOUSING<a href="appendixDatasets.html#california-housing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Included in scikit-learn:</strong> Yes</p>
 <p>The <a href="https://scikit-learn.org/stable/datasets/real_world.html#california-housing-dataset"><em>CALIFORNIA-HOUSING</em></a> dataset <span class="citation">(<a href="#ref-pace1997">Pace and Barry 1997</a>)</span> has <span class="math inline">\(20640\)</span> instances and <span class="math inline">\(8\)</span> features that describe different characteristics of houses such as average number of rooms, house age, average occupancy, etc. The response variable is the median house value.</p>
 </div>
-<div id="digits" class="section level2 hasAnchor" number="14.2">
+<div id="digits" class="section level2 hasAnchor" number="19.2">
 <h2><span class="header-section-number">B.2</span> DIGITS<a href="appendixDatasets.html#digits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Included in scikit-learn:</strong> Yes</p>
 <p>The <a href="https://scikit-learn.org/stable/datasets/toy_dataset.html#optical-recognition-of-handwritten-digits-dataset"><em>DIGITS</em></a> dataset contains <span class="math inline">\(1797\)</span> handwritten digits (<span class="math inline">\(0\dots9\)</span>) as <span class="math inline">\(8\times8\)</span> images. This is a subset of the original data <span class="citation">(<a href="#ref-digits">Alpaydin and Kaynak 1998</a>)</span>.</p>
 </div>
-<div id="iris" class="section level2 hasAnchor" number="14.3">
+<div id="iris" class="section level2 hasAnchor" number="19.3">
 <h2><span class="header-section-number">B.3</span> IRIS<a href="appendixDatasets.html#iris" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Included in scikit-learn:</strong> Yes</p>
 <p>The <a href="https://scikit-learn.org/stable/datasets/toy_dataset.html#iris-plants-dataset"><em>IRIS</em></a> dataset <span class="citation">(<a href="#ref-Fisher1936">Fisher 1936</a>)</span> includes information about 150 plants divided into three categories (<em>‘setosa’</em>, <em>‘virginica’</em>, and <em>‘versicolor’</em>).</p>
 </div>
-<div id="wine" class="section level2 hasAnchor" number="14.4">
+<div id="wine" class="section level2 hasAnchor" number="19.4">
 <h2><span class="header-section-number">B.4</span> WINE<a href="appendixDatasets.html#wine" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Included in scikit-learn:</strong> Yes</p>
 <p>The <a href="https://scikit-learn.org/stable/datasets/toy_dataset.html#wine-recognition-dataset"><em>WINE</em></a> dataset <span class="citation">(<a href="#ref-wine109">Aeberhard and Forina 1992</a>)</span> has <span class="math inline">\(178\)</span> instances of wine chemical analyses. Each one is categorized into one of three classes (three different cultivators in Italy).</p>
 </div>
-<div id="wisdm" class="section level2 hasAnchor" number="14.5">
+<div id="wisdm" class="section level2 hasAnchor" number="19.5">
 <h2><span class="header-section-number">B.5</span> WISDM<a href="appendixDatasets.html#wisdm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Included in scikit-learn:</strong> No</p>
 <p>This dataset is called <a href="http://www.cis.fordham.edu/wisdm/dataset.php"><em>WISDM</em></a> and was made available by <span class="citation">Kwapisz, Weiss, and Moore (<a href="#ref-kwapisz2010">2010</a>)</span>. The dataset includes <span class="math inline">\(6\)</span> different activities: <em>‘walking’</em>, <em>‘jogging’</em>, <em>‘walking upstairs’</em>, <em>‘walking downstairs’</em>, <em>‘sitting’</em>, and <em>‘standing’</em>. The data was collected by <span class="math inline">\(36\)</span> volunteers with the accelerometer of an Android phone located in the users’ pants pocket and with a sampling rate of <span class="math inline">\(20\)</span> Hz.</p>

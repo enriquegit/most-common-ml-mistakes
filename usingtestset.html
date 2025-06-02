@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Mistake 5: Using the test set for fine tunning | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM</title>
+  <title>Mistake 6: Using the test set for fine tunning | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM</title>
   <meta name="description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Mistake 5: Using the test set for fine tunning | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
+  <meta property="og:title" content="Mistake 6: Using the test set for fine tunning | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/cover.jpg" />
   <meta property="og:description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Mistake 5: Using the test set for fine tunning | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
+  <meta name="twitter:title" content="Mistake 6: Using the test set for fine tunning | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
   
   <meta name="twitter:description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
   <meta name="twitter:image" content="/images/cover.jpg" />
@@ -23,14 +23,14 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-01" />
+<meta name="date" content="2025-06-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="irrelevantfeatures.html"/>
+<link rel="prev" href="ignoringscales.html"/>
 <link rel="next" href="onlyaccuracy.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -192,14 +192,19 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="trainperformance.html"><a href="trainperformance.html"><i class="fa fa-check"></i><b>2</b> Reporting train performance</a></li>
 <li class="chapter" data-level="3" data-path="settingseed.html"><a href="settingseed.html"><i class="fa fa-check"></i><b>3</b> Not setting a seed value</a></li>
 <li class="chapter" data-level="4" data-path="irrelevantfeatures.html"><a href="irrelevantfeatures.html"><i class="fa fa-check"></i><b>4</b> Including irrelevant features</a></li>
-<li class="chapter" data-level="5" data-path="usingtestset.html"><a href="usingtestset.html"><i class="fa fa-check"></i><b>5</b> Using the test set for fine tunning</a></li>
-<li class="chapter" data-level="6" data-path="onlyaccuracy.html"><a href="onlyaccuracy.html"><i class="fa fa-check"></i><b>6</b> Only reporting accuracy</a></li>
-<li class="chapter" data-level="7" data-path="notbaseline.html"><a href="notbaseline.html"><i class="fa fa-check"></i><b>7</b> Not comparing against a baseline</a></li>
-<li class="chapter" data-level="8" data-path="accountingvariance.html"><a href="accountingvariance.html"><i class="fa fa-check"></i><b>8</b> Not accounting for variance</a></li>
-<li class="chapter" data-level="9" data-path="datainjection.html"><a href="datainjection.html"><i class="fa fa-check"></i><b>9</b> Injecting data into the test set</a></li>
-<li class="chapter" data-level="10" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>10</b> Not shuffling the training data</a></li>
-<li class="chapter" data-level="11" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>11</b> Not saving the results</a></li>
-<li class="chapter" data-level="12" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>12</b> Not parallelizing</a></li>
+<li class="chapter" data-level="5" data-path="ignoringscales.html"><a href="ignoringscales.html"><i class="fa fa-check"></i><b>5</b> Ignoring differences in scales</a></li>
+<li class="chapter" data-level="6" data-path="usingtestset.html"><a href="usingtestset.html"><i class="fa fa-check"></i><b>6</b> Using the test set for fine tunning</a></li>
+<li class="chapter" data-level="7" data-path="onlyaccuracy.html"><a href="onlyaccuracy.html"><i class="fa fa-check"></i><b>7</b> Only reporting accuracy</a></li>
+<li class="chapter" data-level="8" data-path="notbaseline.html"><a href="notbaseline.html"><i class="fa fa-check"></i><b>8</b> Not comparing against a baseline</a></li>
+<li class="chapter" data-level="9" data-path="accountingvariance.html"><a href="accountingvariance.html"><i class="fa fa-check"></i><b>9</b> Not accounting for variance</a></li>
+<li class="chapter" data-level="10" data-path="datainjection.html"><a href="datainjection.html"><i class="fa fa-check"></i><b>10</b> Injecting data into the test set</a></li>
+<li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
+<li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
+<li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
+<li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
+<li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appendixInstall.html"><a href="appendixInstall.html"><i class="fa fa-check"></i><b>A</b> Setup Your Environment</a></li>
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
@@ -229,8 +234,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="usingtestset" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">Mistake 5:</span> Using the test set for fine tunning<a href="usingtestset.html#usingtestset" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="usingtestset" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Mistake 6:</span> Using the test set for fine tunning<a href="usingtestset.html#usingtestset" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 
 <div class="rmdmistake">
 Using the test set for fine tunning your models and/or preprocessing methods.
@@ -238,11 +243,11 @@ Using the test set for fine tunning your models and/or preprocessing methods.
 <p></br></p>
 <p>Most machine learning models require some hyper-parameter tuning. For example, KNN requires to specify the number of nearest neighbors <span class="math inline">\(k\)</span> and the distance function (Euclidean, Manhattan, etc.). In decision trees, you need to specify the feature importance function, maximum tree depth, etc. For ensembles, you need to specify the number of models, and so on. Parameter tuning can also occur when preprocessing the data. For example, when applying a moving average filter to timeseries data, one needs to define the window size.</p>
 <p>Finding the best hyper-parameters requires trying different values either by hand, or by using optimization procedures such as grid search, genetic algorithms, Bayesian optimization, to name a few.</p>
-<p>One of the most common mistakes occurs when using the test set to optimize hyper-parameters. Figure <a href="usingtestset.html#fig:params-test">5.1</a> exemplifies this scenario. Here, the best <span class="math inline">\(k\)</span> for KNN is looked for. The model was fitted using a train set. Then, different values of <span class="math inline">\(k\)</span> (1-3) are evaluated using the test set. In this case, the model is being overfitted to the test set.</p>
+<p>One of the most common mistakes occurs when using the test set to optimize hyper-parameters. Figure <a href="usingtestset.html#fig:params-test">6.1</a> exemplifies this scenario. Here, the best <span class="math inline">\(k\)</span> for KNN is looked for. The model was fitted using a train set. Then, different values of <span class="math inline">\(k\)</span> (1-3) are evaluated using the test set. In this case, the model is being overfitted to the test set.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:params-test"></span>
 <img src="images/hyper-parameters-test.png" alt="Overfitting a model to the test set." width="50%" />
 <p class="caption">
-Figure 5.1: Overfitting a model to the test set.
+Figure 6.1: Overfitting a model to the test set.
 </p>
 </div>
 <p>The following code snippet illustrates this same scenario when building a KNN classifier for the <em>WISDM</em> dataset.</p>
@@ -266,11 +271,11 @@ Figure 5.1: Overfitting a model to the test set.
 <span id="cb16-5"><a href="usingtestset.html#cb16-5" tabindex="-1"></a><span class="co">#&gt;&gt; k=5 accuracy 0.80</span></span></code></pre></div>
 <p>The problem with this approach is that the value of <span class="math inline">\(k\)</span> is being chosen specifically for <em>this</em> test set. Thus, the model’s performance is likely being overestimated when reporting the accuracy with the best selected <span class="math inline">\(k\)</span>.</p>
 <p>The correct way of evaluating different hyper-parameters is to do so using an independent set of data. Typically, this one is called the <em>validation set</em>. Instead of dividing the data into two subsets, it should be split into three subsets: <em>train</em>, <em>validation</em>, and <em>test</em> sets.</p>
-<p>The model is trained with the <em>train set</em>. Then, hyper-parameter optimization is performed using the <em>validation set</em>. Once the best hyper-parameters have been found (<span class="math inline">\(k\)</span> in this example), the final model is tested only once using the <em>test set</em> (and these are the performace measures to be reported). Figure <a href="usingtestset.html#fig:params-val">5.2</a> shows this procedure.</p>
+<p>The model is trained with the <em>train set</em>. Then, hyper-parameter optimization is performed using the <em>validation set</em>. Once the best hyper-parameters have been found (<span class="math inline">\(k\)</span> in this example), the final model is tested only once using the <em>test set</em> (and these are the performace measures to be reported). Figure <a href="usingtestset.html#fig:params-val">6.2</a> shows this procedure.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:params-val"></span>
 <img src="images/hyper-parameters-val.png" alt="Finding the best hyper-parameters using an independent validation set." width="100%" />
 <p class="caption">
-Figure 5.2: Finding the best hyper-parameters using an independent validation set.
+Figure 6.2: Finding the best hyper-parameters using an independent validation set.
 </p>
 </div>
 <p>In code, this would look like this:</p>
@@ -317,7 +322,7 @@ When performing hyper-parameter tuning, use an independent validation set.
           </div>
         </div>
       </div>
-<a href="irrelevantfeatures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ignoringscales.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="onlyaccuracy.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
