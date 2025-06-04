@@ -5,6 +5,10 @@ fig:report-stats
 fig:report-histogram
 fig:wisdm-head
 fig:wisdm-alerts
+fig:scales-1
+eq:euclideanDistance
+eq:normalize
+fig:scales-2
 fig:params-test
 fig:params-val
 fig:digit
@@ -34,6 +38,7 @@ wastingunlabeled
 appendixInstall
 appendixDatasets
 california-housing
+diagnostic
 digits
 iris
 wine

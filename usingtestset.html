@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-02" />
+<meta name="date" content="2025-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,7 @@ div.csl-indent {
 <li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
 <li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
 <li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
-<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Encoding categories as integers</a></li>
 <li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
 <li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
 <li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
@@ -210,10 +210,11 @@ div.csl-indent {
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
 <ul>
 <li class="chapter" data-level="B.1" data-path="appendixDatasets.html"><a href="appendixDatasets.html#california-housing"><i class="fa fa-check"></i><b>B.1</b> CALIFORNIA-HOUSING</a></li>
-<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.2</b> DIGITS</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.3</b> IRIS</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.4</b> WINE</a></li>
-<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.5</b> WISDM</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#diagnostic"><i class="fa fa-check"></i><b>B.2</b> DIAGNOSTIC</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.3</b> DIGITS</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.4</b> IRIS</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.5</b> WINE</a></li>
+<li class="chapter" data-level="B.6" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.6</b> WISDM</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="citing-this-book.html"><a href="citing-this-book.html"><i class="fa fa-check"></i>Citing this Book</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -251,24 +252,24 @@ Figure 6.1: Overfitting a model to the test set.
 </p>
 </div>
 <p>The following code snippet illustrates this same scenario when building a KNN classifier for the <em>WISDM</em> dataset.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb15-1"><a href="usingtestset.html#cb15-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X_scaled, y,</span>
-<span id="cb15-2"><a href="usingtestset.html#cb15-2"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span id="cb15-3"><a href="usingtestset.html#cb15-3"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb15-4"><a href="usingtestset.html#cb15-4"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
-<span id="cb15-5"><a href="usingtestset.html#cb15-5"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
-<span id="cb15-6"><a href="usingtestset.html#cb15-6"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
-<span id="cb15-7"><a href="usingtestset.html#cb15-7"></a></span>
-<span id="cb15-8"><a href="usingtestset.html#cb15-8"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
-<span id="cb15-9"><a href="usingtestset.html#cb15-9"></a>    knn <span class="op">=</span> KNeighborsClassifier(n_neighbors <span class="op">=</span> i<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb15-10"><a href="usingtestset.html#cb15-10"></a>    knn.fit(X_train_scaled, y_train)</span>
-<span id="cb15-11"><a href="usingtestset.html#cb15-11"></a>    y_pred <span class="op">=</span> knn.predict(X_test_scaled)</span>
-<span id="cb15-12"><a href="usingtestset.html#cb15-12"></a>    accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
-<span id="cb15-13"><a href="usingtestset.html#cb15-13"></a>    <span class="bu">print</span>(<span class="ss">f&quot;k=</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">&quot;</span> <span class="ss">f&quot; accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb16-1"><a href="usingtestset.html#cb16-1" tabindex="-1"></a><span class="co">#&gt;&gt; k=1 accuracy 0.83</span></span>
-<span id="cb16-2"><a href="usingtestset.html#cb16-2" tabindex="-1"></a><span class="co">#&gt;&gt; k=2 accuracy 0.79</span></span>
-<span id="cb16-3"><a href="usingtestset.html#cb16-3" tabindex="-1"></a><span class="co">#&gt;&gt; k=3 accuracy 0.81</span></span>
-<span id="cb16-4"><a href="usingtestset.html#cb16-4" tabindex="-1"></a><span class="co">#&gt;&gt; k=4 accuracy 0.80</span></span>
-<span id="cb16-5"><a href="usingtestset.html#cb16-5" tabindex="-1"></a><span class="co">#&gt;&gt; k=5 accuracy 0.80</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb17-1"><a href="usingtestset.html#cb17-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X_scaled, y,</span>
+<span id="cb17-2"><a href="usingtestset.html#cb17-2"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span id="cb17-3"><a href="usingtestset.html#cb17-3"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb17-4"><a href="usingtestset.html#cb17-4"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb17-5"><a href="usingtestset.html#cb17-5"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
+<span id="cb17-6"><a href="usingtestset.html#cb17-6"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
+<span id="cb17-7"><a href="usingtestset.html#cb17-7"></a></span>
+<span id="cb17-8"><a href="usingtestset.html#cb17-8"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb17-9"><a href="usingtestset.html#cb17-9"></a>    knn <span class="op">=</span> KNeighborsClassifier(n_neighbors <span class="op">=</span> i<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb17-10"><a href="usingtestset.html#cb17-10"></a>    knn.fit(X_train_scaled, y_train)</span>
+<span id="cb17-11"><a href="usingtestset.html#cb17-11"></a>    y_pred <span class="op">=</span> knn.predict(X_test_scaled)</span>
+<span id="cb17-12"><a href="usingtestset.html#cb17-12"></a>    accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb17-13"><a href="usingtestset.html#cb17-13"></a>    <span class="bu">print</span>(<span class="ss">f&quot;k=</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">&quot;</span> <span class="ss">f&quot; accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb18-1"><a href="usingtestset.html#cb18-1" tabindex="-1"></a><span class="co">#&gt;&gt; k=1 accuracy 0.83</span></span>
+<span id="cb18-2"><a href="usingtestset.html#cb18-2" tabindex="-1"></a><span class="co">#&gt;&gt; k=2 accuracy 0.79</span></span>
+<span id="cb18-3"><a href="usingtestset.html#cb18-3" tabindex="-1"></a><span class="co">#&gt;&gt; k=3 accuracy 0.81</span></span>
+<span id="cb18-4"><a href="usingtestset.html#cb18-4" tabindex="-1"></a><span class="co">#&gt;&gt; k=4 accuracy 0.80</span></span>
+<span id="cb18-5"><a href="usingtestset.html#cb18-5" tabindex="-1"></a><span class="co">#&gt;&gt; k=5 accuracy 0.80</span></span></code></pre></div>
 <p>The problem with this approach is that the value of <span class="math inline">\(k\)</span> is being chosen specifically for <em>this</em> test set. Thus, the model’s performance is likely being overestimated when reporting the accuracy with the best selected <span class="math inline">\(k\)</span>.</p>
 <p>The correct way of evaluating different hyper-parameters is to do so using an independent set of data. Typically, this one is called the <em>validation set</em>. Instead of dividing the data into two subsets, it should be split into three subsets: <em>train</em>, <em>validation</em>, and <em>test</em> sets.</p>
 <p>The model is trained with the <em>train set</em>. Then, hyper-parameter optimization is performed using the <em>validation set</em>. Once the best hyper-parameters have been found (<span class="math inline">\(k\)</span> in this example), the final model is tested only once using the <em>test set</em> (and these are the performace measures to be reported). Figure <a href="usingtestset.html#fig:params-val">6.2</a> shows this procedure.</p>
@@ -279,38 +280,39 @@ Figure 6.2: Finding the best hyper-parameters using an independent validation se
 </p>
 </div>
 <p>In code, this would look like this:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb17-1"><a href="usingtestset.html#cb17-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y,</span>
-<span id="cb17-2"><a href="usingtestset.html#cb17-2"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span id="cb17-3"><a href="usingtestset.html#cb17-3"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb17-4"><a href="usingtestset.html#cb17-4"></a><span class="co"># Split the test set into two equal-size sets.</span></span>
-<span id="cb17-5"><a href="usingtestset.html#cb17-5"></a>X_test, X_val, y_test, y_val <span class="op">=</span> train_test_split(X_test, y_test,</span>
-<span id="cb17-6"><a href="usingtestset.html#cb17-6"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span id="cb17-7"><a href="usingtestset.html#cb17-7"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb17-8"><a href="usingtestset.html#cb17-8"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
-<span id="cb17-9"><a href="usingtestset.html#cb17-9"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
-<span id="cb17-10"><a href="usingtestset.html#cb17-10"></a>X_val_scaled <span class="op">=</span> scaler.transform(X_val)</span>
-<span id="cb17-11"><a href="usingtestset.html#cb17-11"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
-<span id="cb17-12"><a href="usingtestset.html#cb17-12"></a></span>
-<span id="cb17-13"><a href="usingtestset.html#cb17-13"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
-<span id="cb17-14"><a href="usingtestset.html#cb17-14"></a>    knn <span class="op">=</span> KNeighborsClassifier(n_neighbors <span class="op">=</span> i<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb17-15"><a href="usingtestset.html#cb17-15"></a>    knn.fit(X_train_scaled, y_train)</span>
-<span id="cb17-16"><a href="usingtestset.html#cb17-16"></a>    y_pred <span class="op">=</span> knn.predict(X_val_scaled)</span>
-<span id="cb17-17"><a href="usingtestset.html#cb17-17"></a>    accuracy <span class="op">=</span> accuracy_score(y_val, y_pred)</span>
-<span id="cb17-18"><a href="usingtestset.html#cb17-18"></a>    <span class="bu">print</span>(<span class="ss">f&quot;k=</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">&quot;</span> <span class="ss">f&quot; accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb18-1"><a href="usingtestset.html#cb18-1" tabindex="-1"></a><span class="co">#&gt;&gt; k=1 accuracy 0.83</span></span>
-<span id="cb18-2"><a href="usingtestset.html#cb18-2" tabindex="-1"></a><span class="co">#&gt;&gt; k=2 accuracy 0.80</span></span>
-<span id="cb18-3"><a href="usingtestset.html#cb18-3" tabindex="-1"></a><span class="co">#&gt;&gt; k=3 accuracy 0.81</span></span>
-<span id="cb18-4"><a href="usingtestset.html#cb18-4" tabindex="-1"></a><span class="co">#&gt;&gt; k=4 accuracy 0.80</span></span>
-<span id="cb18-5"><a href="usingtestset.html#cb18-5" tabindex="-1"></a><span class="co">#&gt;&gt; k=5 accuracy 0.80</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb19-1"><a href="usingtestset.html#cb19-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y,</span>
+<span id="cb19-2"><a href="usingtestset.html#cb19-2"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span id="cb19-3"><a href="usingtestset.html#cb19-3"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb19-4"><a href="usingtestset.html#cb19-4"></a><span class="co"># Split the test set into two equal-size sets.</span></span>
+<span id="cb19-5"><a href="usingtestset.html#cb19-5"></a>X_test, X_val, y_test, y_val <span class="op">=</span> train_test_split(X_test, y_test,</span>
+<span id="cb19-6"><a href="usingtestset.html#cb19-6"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span id="cb19-7"><a href="usingtestset.html#cb19-7"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb19-8"><a href="usingtestset.html#cb19-8"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb19-9"><a href="usingtestset.html#cb19-9"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
+<span id="cb19-10"><a href="usingtestset.html#cb19-10"></a>X_val_scaled <span class="op">=</span> scaler.transform(X_val)</span>
+<span id="cb19-11"><a href="usingtestset.html#cb19-11"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
+<span id="cb19-12"><a href="usingtestset.html#cb19-12"></a></span>
+<span id="cb19-13"><a href="usingtestset.html#cb19-13"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb19-14"><a href="usingtestset.html#cb19-14"></a>    knn <span class="op">=</span> KNeighborsClassifier(n_neighbors <span class="op">=</span> i<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb19-15"><a href="usingtestset.html#cb19-15"></a>    knn.fit(X_train_scaled, y_train)</span>
+<span id="cb19-16"><a href="usingtestset.html#cb19-16"></a>    y_pred <span class="op">=</span> knn.predict(X_val_scaled)</span>
+<span id="cb19-17"><a href="usingtestset.html#cb19-17"></a>    accuracy <span class="op">=</span> accuracy_score(y_val, y_pred)</span>
+<span id="cb19-18"><a href="usingtestset.html#cb19-18"></a>    <span class="bu">print</span>(<span class="ss">f&quot;k=</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">&quot;</span> <span class="ss">f&quot; accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb20-1"><a href="usingtestset.html#cb20-1" tabindex="-1"></a><span class="co">#&gt;&gt; k=1 accuracy 0.83</span></span>
+<span id="cb20-2"><a href="usingtestset.html#cb20-2" tabindex="-1"></a><span class="co">#&gt;&gt; k=2 accuracy 0.80</span></span>
+<span id="cb20-3"><a href="usingtestset.html#cb20-3" tabindex="-1"></a><span class="co">#&gt;&gt; k=3 accuracy 0.81</span></span>
+<span id="cb20-4"><a href="usingtestset.html#cb20-4" tabindex="-1"></a><span class="co">#&gt;&gt; k=4 accuracy 0.80</span></span>
+<span id="cb20-5"><a href="usingtestset.html#cb20-5" tabindex="-1"></a><span class="co">#&gt;&gt; k=5 accuracy 0.80</span></span></code></pre></div>
 <p>Here, half of the test set used as the validation set which is used to find the best <span class="math inline">\(k\)</span> (<span class="math inline">\(1\)</span> in this case).</p>
 <p>Finally a KNN with <span class="math inline">\(k=1\)</span> is evaluated on the test set, and this is what is reported.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb19-1"><a href="usingtestset.html#cb19-1"></a>best_k <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb19-2"><a href="usingtestset.html#cb19-2"></a>knn <span class="op">=</span> KNeighborsClassifier(n_neighbors <span class="op">=</span> best_k)</span>
-<span id="cb19-3"><a href="usingtestset.html#cb19-3"></a>knn.fit(X_train_scaled, y_train)</span>
-<span id="cb19-4"><a href="usingtestset.html#cb19-4"></a>y_pred <span class="op">=</span> knn.predict(X_test_scaled)</span>
-<span id="cb19-5"><a href="usingtestset.html#cb19-5"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
-<span id="cb19-6"><a href="usingtestset.html#cb19-6"></a><span class="bu">print</span>(<span class="ss">f&quot; test set accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb20-1"><a href="usingtestset.html#cb20-1" tabindex="-1"></a><span class="co">#&gt;&gt; test set accuracy 0.83</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb21-1"><a href="usingtestset.html#cb21-1"></a>best_k <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb21-2"><a href="usingtestset.html#cb21-2"></a>knn <span class="op">=</span> KNeighborsClassifier(n_neighbors <span class="op">=</span> best_k)</span>
+<span id="cb21-3"><a href="usingtestset.html#cb21-3"></a>knn.fit(X_train_scaled, y_train)</span>
+<span id="cb21-4"><a href="usingtestset.html#cb21-4"></a>y_pred <span class="op">=</span> knn.predict(X_test_scaled)</span>
+<span id="cb21-5"><a href="usingtestset.html#cb21-5"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb21-6"><a href="usingtestset.html#cb21-6"></a><span class="bu">print</span>(<span class="ss">f&quot; test set accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb22-1"><a href="usingtestset.html#cb22-1" tabindex="-1"></a><span class="co">#&gt;&gt; test set accuracy 0.83</span></span></code></pre></div>
+</br>
 
 <div class="rmdsolution">
 When performing hyper-parameter tuning, use an independent validation set.

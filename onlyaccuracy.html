@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-02" />
+<meta name="date" content="2025-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,7 @@ div.csl-indent {
 <li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
 <li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
 <li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
-<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Encoding categories as integers</a></li>
 <li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
 <li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
 <li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
@@ -210,10 +210,11 @@ div.csl-indent {
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
 <ul>
 <li class="chapter" data-level="B.1" data-path="appendixDatasets.html"><a href="appendixDatasets.html#california-housing"><i class="fa fa-check"></i><b>B.1</b> CALIFORNIA-HOUSING</a></li>
-<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.2</b> DIGITS</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.3</b> IRIS</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.4</b> WINE</a></li>
-<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.5</b> WISDM</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#diagnostic"><i class="fa fa-check"></i><b>B.2</b> DIAGNOSTIC</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.3</b> DIGITS</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.4</b> IRIS</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.5</b> WINE</a></li>
+<li class="chapter" data-level="B.6" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.6</b> WISDM</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="citing-this-book.html"><a href="citing-this-book.html"><i class="fa fa-check"></i>Citing this Book</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -243,25 +244,25 @@ Only reporting accuracy when assessing the performance of a model.
 <p></br></p>
 <p>The main purpose when assessing the performance of a model is to understand its generalization capabilities. This evaluation is done mainly through the use of performance metrics (accuracy, recall, precision, etc.). Each metric captures different aspects of the problem at hand. However, sometimes only accuracy is reported which can lead to misleading interpretations. Let’s say your test set has <span class="math inline">\(99\)</span> <em>positive</em> instances and <span class="math inline">\(1\)</span> <em>negative</em> instance. A simple model that always predicts <em>positive</em> regardless of the input will have an accuracy of <span class="math inline">\(99\%\)</span>. However, it will never be able to detect the <em>negative</em> class which is the one you may be the most interested in. By only computing the accuracy, you may think that the model is very good. However, when looking at the recall, it will be <span class="math inline">\(0\%\)</span> for the <em>negative</em> class. Computing other metrics besides accuracy not only gives you a more complete view of the behavior of the model but also allows you to identify possible issues in the data (e.g., imbalanced classes).</p>
 <p>The following code shows the use of <code>classification_report()</code> which computes several metrics for each class (<span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span>, <span class="math inline">\(2\)</span>).</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb21-1"><a href="onlyaccuracy.html#cb21-1"></a><span class="co"># Load the wine dataset.</span></span>
-<span id="cb21-2"><a href="onlyaccuracy.html#cb21-2"></a>data <span class="op">=</span> load_wine()</span>
-<span id="cb21-3"><a href="onlyaccuracy.html#cb21-3"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(data.data,</span>
-<span id="cb21-4"><a href="onlyaccuracy.html#cb21-4"></a>                                                    data.target,</span>
-<span id="cb21-5"><a href="onlyaccuracy.html#cb21-5"></a>                                                    test_size<span class="op">=</span><span class="fl">0.5</span>,</span>
-<span id="cb21-6"><a href="onlyaccuracy.html#cb21-6"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb21-7"><a href="onlyaccuracy.html#cb21-7"></a>dt <span class="op">=</span> DecisionTreeClassifier(random_state <span class="op">=</span><span class="dv">123</span>)</span>
-<span id="cb21-8"><a href="onlyaccuracy.html#cb21-8"></a>dt.fit(X_train, y_train)</span>
-<span id="cb21-9"><a href="onlyaccuracy.html#cb21-9"></a>y_pred <span class="op">=</span> dt.predict(X_test)</span>
-<span id="cb21-10"><a href="onlyaccuracy.html#cb21-10"></a><span class="bu">print</span>(classification_report(y_test, y_pred))</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb22-1"><a href="onlyaccuracy.html#cb22-1" tabindex="-1"></a><span class="co">#&gt;&gt;               precision    recall  f1-score   support</span></span>
-<span id="cb22-2"><a href="onlyaccuracy.html#cb22-2" tabindex="-1"></a><span class="co">#&gt;&gt; </span></span>
-<span id="cb22-3"><a href="onlyaccuracy.html#cb22-3" tabindex="-1"></a><span class="co">#&gt;&gt;            0       0.83      0.97      0.89        30</span></span>
-<span id="cb22-4"><a href="onlyaccuracy.html#cb22-4" tabindex="-1"></a><span class="co">#&gt;&gt;            1       0.88      0.77      0.82        30</span></span>
-<span id="cb22-5"><a href="onlyaccuracy.html#cb22-5" tabindex="-1"></a><span class="co">#&gt;&gt;            2       0.89      0.86      0.88        29</span></span>
-<span id="cb22-6"><a href="onlyaccuracy.html#cb22-6" tabindex="-1"></a><span class="co">#&gt;&gt; </span></span>
-<span id="cb22-7"><a href="onlyaccuracy.html#cb22-7" tabindex="-1"></a><span class="co">#&gt;&gt;     accuracy                           0.87        89</span></span>
-<span id="cb22-8"><a href="onlyaccuracy.html#cb22-8" tabindex="-1"></a><span class="co">#&gt;&gt;    macro avg       0.87      0.87      0.86        89</span></span>
-<span id="cb22-9"><a href="onlyaccuracy.html#cb22-9" tabindex="-1"></a><span class="co">#&gt;&gt; weighted avg       0.87      0.87      0.86        89</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb23-1"><a href="onlyaccuracy.html#cb23-1"></a><span class="co"># Load the wine dataset.</span></span>
+<span id="cb23-2"><a href="onlyaccuracy.html#cb23-2"></a>data <span class="op">=</span> load_wine()</span>
+<span id="cb23-3"><a href="onlyaccuracy.html#cb23-3"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(data.data,</span>
+<span id="cb23-4"><a href="onlyaccuracy.html#cb23-4"></a>                                                    data.target,</span>
+<span id="cb23-5"><a href="onlyaccuracy.html#cb23-5"></a>                                                    test_size<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb23-6"><a href="onlyaccuracy.html#cb23-6"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb23-7"><a href="onlyaccuracy.html#cb23-7"></a>dt <span class="op">=</span> DecisionTreeClassifier(random_state <span class="op">=</span><span class="dv">123</span>)</span>
+<span id="cb23-8"><a href="onlyaccuracy.html#cb23-8"></a>dt.fit(X_train, y_train)</span>
+<span id="cb23-9"><a href="onlyaccuracy.html#cb23-9"></a>y_pred <span class="op">=</span> dt.predict(X_test)</span>
+<span id="cb23-10"><a href="onlyaccuracy.html#cb23-10"></a><span class="bu">print</span>(classification_report(y_test, y_pred))</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb24-1"><a href="onlyaccuracy.html#cb24-1" tabindex="-1"></a><span class="co">#&gt;&gt;               precision    recall  f1-score   support</span></span>
+<span id="cb24-2"><a href="onlyaccuracy.html#cb24-2" tabindex="-1"></a><span class="co">#&gt;&gt; </span></span>
+<span id="cb24-3"><a href="onlyaccuracy.html#cb24-3" tabindex="-1"></a><span class="co">#&gt;&gt;            0       0.83      0.97      0.89        30</span></span>
+<span id="cb24-4"><a href="onlyaccuracy.html#cb24-4" tabindex="-1"></a><span class="co">#&gt;&gt;            1       0.88      0.77      0.82        30</span></span>
+<span id="cb24-5"><a href="onlyaccuracy.html#cb24-5" tabindex="-1"></a><span class="co">#&gt;&gt;            2       0.89      0.86      0.88        29</span></span>
+<span id="cb24-6"><a href="onlyaccuracy.html#cb24-6" tabindex="-1"></a><span class="co">#&gt;&gt; </span></span>
+<span id="cb24-7"><a href="onlyaccuracy.html#cb24-7" tabindex="-1"></a><span class="co">#&gt;&gt;     accuracy                           0.87        89</span></span>
+<span id="cb24-8"><a href="onlyaccuracy.html#cb24-8" tabindex="-1"></a><span class="co">#&gt;&gt;    macro avg       0.87      0.87      0.86        89</span></span>
+<span id="cb24-9"><a href="onlyaccuracy.html#cb24-9" tabindex="-1"></a><span class="co">#&gt;&gt; weighted avg       0.87      0.87      0.86        89</span></span></code></pre></div>
 </br>
 
 <div class="rmdsolution">

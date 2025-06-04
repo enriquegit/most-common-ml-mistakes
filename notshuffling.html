@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-02" />
+<meta name="date" content="2025-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,7 @@ div.csl-indent {
 <li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
 <li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
 <li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
-<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Encoding categories as integers</a></li>
 <li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
 <li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
 <li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
@@ -210,10 +210,11 @@ div.csl-indent {
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
 <ul>
 <li class="chapter" data-level="B.1" data-path="appendixDatasets.html"><a href="appendixDatasets.html#california-housing"><i class="fa fa-check"></i><b>B.1</b> CALIFORNIA-HOUSING</a></li>
-<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.2</b> DIGITS</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.3</b> IRIS</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.4</b> WINE</a></li>
-<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.5</b> WISDM</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#diagnostic"><i class="fa fa-check"></i><b>B.2</b> DIAGNOSTIC</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.3</b> DIGITS</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.4</b> IRIS</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.5</b> WINE</a></li>
+<li class="chapter" data-level="B.6" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.6</b> WISDM</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="citing-this-book.html"><a href="citing-this-book.html"><i class="fa fa-check"></i>Citing this Book</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -248,25 +249,28 @@ Not shuffling the data can degrade the performance of some models.
 Bear in mind that shuffling is not recommended in some cases and should be avoided when fitting time-dependent models such as ARIMA and Recurrent Neural Networks. In sequence-based data, temporal order is crucial and shuffling alters the time-dependencies.
 </div>
 <p>The following code loads the <em>WISDM</em> dataset. Figure <a href="notshuffling.html#fig:wisdm-sorted">11.1</a> shows the first ten rows.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb41-1"><a href="notshuffling.html#cb41-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb41-2"><a href="notshuffling.html#cb41-2"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;data/wisdm/WISDM_ar_v1.1_transformed.csv&quot;</span>)</span>
-<span id="cb41-3"><a href="notshuffling.html#cb41-3"></a>df.head(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb43-1"><a href="notshuffling.html#cb43-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb43-2"><a href="notshuffling.html#cb43-2"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;data/wisdm/WISDM_ar_v1.1_transformed.csv&quot;</span>)</span>
+<span id="cb43-3"><a href="notshuffling.html#cb43-3"></a>df.head(<span class="dv">10</span>)</span></code></pre></div>
+
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:wisdm-sorted"></span>
-<img src="images/wisdm-sorted.png" alt="First rows of *WISDM* dataset." width="60%" />
+<img src="images/wisdm-sorted.png" alt="First rows of WISDM dataset." width="60%" />
 <p class="caption">
 Figure 11.1: First rows of <em>WISDM</em> dataset.
 </p>
 </div>
 <p>Here, you can see that the rows are sorted by <code>user</code>. You can easily shuffle the rows with the <code>sample()</code> function as follows.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb42-1"><a href="notshuffling.html#cb42-1"></a>shuffled_df <span class="op">=</span> df.sample(frac <span class="op">=</span> <span class="dv">1</span>, random_state <span class="op">=</span> <span class="dv">1234</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb42-2"><a href="notshuffling.html#cb42-2"></a>shuffled_df.head(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb44-1"><a href="notshuffling.html#cb44-1"></a>shuffled_df <span class="op">=</span> df.sample(frac <span class="op">=</span> <span class="dv">1</span>, random_state <span class="op">=</span> <span class="dv">1234</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb44-2"><a href="notshuffling.html#cb44-2"></a>shuffled_df.head(<span class="dv">10</span>)</span></code></pre></div>
+
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:wisdm-shuffled"></span>
-<img src="images/wisdm-shuffled.png" alt="First rows of *WISDM* dataset after shuffling." width="60%" />
+<img src="images/wisdm-shuffled.png" alt="First rows of WISDM dataset after shuffling." width="60%" />
 <p class="caption">
 Figure 11.2: First rows of <em>WISDM</em> dataset after shuffling.
 </p>
 </div>
 <p>Figure <a href="notshuffling.html#fig:wisdm-shuffled">11.2</a> shows the result of shuffling the rows. The <code>frac = 1</code> parameter indicates the fraction of data to be sampled without replacement. In this case, we want all data back so it is set to <span class="math inline">\(1\)</span>. When splitting the data using <code>train_test_split()</code>, the data will also be returned in a random order.</p>
+</br>
 
 <div class="rmdsolution">
 As a good practice, the train set should be shuffled before fitting models that assume independence between instances.

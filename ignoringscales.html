@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-02" />
+<meta name="date" content="2025-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,7 @@ div.csl-indent {
 <li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
 <li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
 <li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
-<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Encoding categories as integers</a></li>
 <li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
 <li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
 <li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
@@ -210,10 +210,11 @@ div.csl-indent {
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
 <ul>
 <li class="chapter" data-level="B.1" data-path="appendixDatasets.html"><a href="appendixDatasets.html#california-housing"><i class="fa fa-check"></i><b>B.1</b> CALIFORNIA-HOUSING</a></li>
-<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.2</b> DIGITS</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.3</b> IRIS</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.4</b> WINE</a></li>
-<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.5</b> WISDM</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#diagnostic"><i class="fa fa-check"></i><b>B.2</b> DIAGNOSTIC</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.3</b> DIGITS</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.4</b> IRIS</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.5</b> WINE</a></li>
+<li class="chapter" data-level="B.6" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.6</b> WISDM</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="citing-this-book.html"><a href="citing-this-book.html"><i class="fa fa-check"></i>Citing this Book</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -236,7 +237,60 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="ignoringscales" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Mistake 5:</span> Ignoring differences in scales<a href="ignoringscales.html#ignoringscales" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Chapter under construction…</p>
+
+<div class="rmdmistake">
+Ignoring differences in features’ scales.
+</div>
+<p></br></p>
+<p>As previously mentioned (see Mistake <a href="notunderstandingdata.html#notunderstandingdata">1</a>), it is always a good idea to perform an exploratory analysis of your data. At this point, you may realize that the features have different scales. For example, let’s load the <em>DIAGNOSTIC</em> dataset and compute some summary statistics with the <code>describe()</code> function. Figure <a href="ignoringscales.html#fig:scales-1">5.1</a> shows a summary of the data frame.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb15-1"><a href="ignoringscales.html#cb15-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
+<span id="cb15-2"><a href="ignoringscales.html#cb15-2"></a>data <span class="op">=</span> load_breast_cancer(as_frame<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-3"><a href="ignoringscales.html#cb15-3"></a>data.frame.describe()</span></code></pre></div>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:scales-1"></span>
+<img src="images/scales-1.png" alt="Summary statistics of the DIAGNOSTIC dataset." width="80%" />
+<p class="caption">
+Figure 5.1: Summary statistics of the <em>DIAGNOSTIC</em> dataset.
+</p>
+</div>
+<p>Here, we can see that the max value of <code>mean concavity</code> is <span class="math inline">\(0.42\)</span> and the max value of <code>mean area</code> is <span class="math inline">\(2501\)</span>. The later is much larger (in the range of thousands). These differences can have a huge impact in many machine learning models. Specially on those based in distances such as KNN. Suppose we want to compute the distance between two feature vectors <span class="math inline">\(v_1=[0.21, 2034]\)</span> and <span class="math inline">\(v_2=[0.19, 1327]\)</span> using the Euclidean distance:</p>
+<p><span class="math display" id="eq:euclideanDistance">\[\begin{equation}
+  d = \sqrt{(0.21 - 0.19)^2 + (2034 - 1327)^2}
+  \tag{5.1}
+\end{equation}\]</span></p>
+<p>It is easy to see that the second feature is dominant, making the first one almost irrelevant. One way to deal with this is by normalizing the features so they fall into the same interval, for example <span class="math inline">\([0-1]\)</span>. The following formula can be used to normalize a variable <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display" id="eq:normalize">\[\begin{equation}
+  z_i = \frac{X_i - min(X)}{max(X)-min(X)}
+  \tag{5.2}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(z_i\)</span> is the normalized <span class="math inline">\(i^{th}\)</span> value and <span class="math inline">\(max(X)\)</span> and <span class="math inline">\(min(X)\)</span> are the maximum and minimum values of <span class="math inline">\(X\)</span>. Scikit-learn has the <code>MinMaxScaler()</code> function that does that transformation. The following code split the data into train and test sets. Then, it fits the scaler using the train data and transforms it (line <span class="math inline">\(10\)</span>). Finally, the test set is transformed as well. Figure <a href="ignoringscales.html#fig:scales-2">5.2</a> the summary statistics of the train set after the transformation.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb16-1"><a href="ignoringscales.html#cb16-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb16-2"><a href="ignoringscales.html#cb16-2"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb16-3"><a href="ignoringscales.html#cb16-3"></a></span>
+<span id="cb16-4"><a href="ignoringscales.html#cb16-4"></a>X <span class="op">=</span> data.data</span>
+<span id="cb16-5"><a href="ignoringscales.html#cb16-5"></a>y <span class="op">=</span> data.target</span>
+<span id="cb16-6"><a href="ignoringscales.html#cb16-6"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y,</span>
+<span id="cb16-7"><a href="ignoringscales.html#cb16-7"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span id="cb16-8"><a href="ignoringscales.html#cb16-8"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb16-9"><a href="ignoringscales.html#cb16-9"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb16-10"><a href="ignoringscales.html#cb16-10"></a>X_train_scaled <span class="op">=</span> scaler.fit_transform(X_train)</span>
+<span id="cb16-11"><a href="ignoringscales.html#cb16-11"></a>X_test_scaled <span class="op">=</span> scaler.transform(X_test)</span>
+<span id="cb16-12"><a href="ignoringscales.html#cb16-12"></a>X_train_scaled_df <span class="op">=</span> pd.DataFrame(X_train_scaled, columns<span class="op">=</span>X.columns)</span>
+<span id="cb16-13"><a href="ignoringscales.html#cb16-13"></a>X_train_scaled_df.describe()</span></code></pre></div>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:scales-2"></span>
+<img src="images/scales-2.png" alt="Summary statistics of the DIAGNOSTIC dataset after normalization." width="80%" />
+<p class="caption">
+Figure 5.2: Summary statistics of the <em>DIAGNOSTIC</em> dataset after normalization.
+</p>
+</div>
+<p>Now, the minimum and maximum values of all features are <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, respectively. Note that the scaler was fitted using only the train data. That is, the parameters (max, min) were learned from the train set and then applied to the test set. This separation is done to avoid leaking training parameters into the test set (see Mistake <a href="datainjection.html#datainjection">10</a>).</p>
+<p>It is worth mentioning that not all models are affected by scale differences. For example, decision trees are immune to differences in scales across features.</p>
+</br>
+
+<div class="rmdsolution">
+Scaling the features can reduce the impact of different ranges across them. Scikit-learn implements several scalers including <code>MinMaxScaler</code>, <code>StandardScaler</code>, <code>MaxAbsScaler</code>, etc.
+</div>
 
 </div>
             </section>

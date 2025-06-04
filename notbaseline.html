@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-02" />
+<meta name="date" content="2025-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,7 @@ div.csl-indent {
 <li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
 <li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
 <li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
-<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Encoding categories as integers</a></li>
 <li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
 <li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
 <li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
@@ -210,10 +210,11 @@ div.csl-indent {
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
 <ul>
 <li class="chapter" data-level="B.1" data-path="appendixDatasets.html"><a href="appendixDatasets.html#california-housing"><i class="fa fa-check"></i><b>B.1</b> CALIFORNIA-HOUSING</a></li>
-<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.2</b> DIGITS</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.3</b> IRIS</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.4</b> WINE</a></li>
-<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.5</b> WISDM</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#diagnostic"><i class="fa fa-check"></i><b>B.2</b> DIAGNOSTIC</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.3</b> DIGITS</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.4</b> IRIS</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.5</b> WINE</a></li>
+<li class="chapter" data-level="B.6" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.6</b> WISDM</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="citing-this-book.html"><a href="citing-this-book.html"><i class="fa fa-check"></i>Citing this Book</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -251,27 +252,27 @@ Not comparing your models against a baseline.
 </ol>
 <p>For regression, a baseline model can predict the mean value. In the case of timeseries data, the prediction at time <span class="math inline">\(t_i\)</span> can be the value at <span class="math inline">\(t_{i-1}\)</span>, or the average across the previous <span class="math inline">\(n\)</span> values.</p>
 <p>For the following example, a synthetic dataset with two classes is created. It consists of <span class="math inline">\(1000\)</span> rows and <span class="math inline">\(10\)</span> features. The dataset is forced to be imbalanced with <code>weights=[0.95, 0.05]</code>.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb23-1"><a href="notbaseline.html#cb23-1"></a>X, y <span class="op">=</span> make_classification(n_samples <span class="op">=</span> <span class="dv">1000</span>, n_features <span class="op">=</span> <span class="dv">10</span>,</span>
-<span id="cb23-2"><a href="notbaseline.html#cb23-2"></a>                           n_redundant <span class="op">=</span> <span class="dv">0</span>, n_classes <span class="op">=</span> <span class="dv">2</span>, </span>
-<span id="cb23-3"><a href="notbaseline.html#cb23-3"></a>                           weights<span class="op">=</span>[<span class="fl">0.95</span>, <span class="fl">0.05</span>], random_state <span class="op">=</span> <span class="dv">123</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb25-1"><a href="notbaseline.html#cb25-1"></a>X, y <span class="op">=</span> make_classification(n_samples <span class="op">=</span> <span class="dv">1000</span>, n_features <span class="op">=</span> <span class="dv">10</span>,</span>
+<span id="cb25-2"><a href="notbaseline.html#cb25-2"></a>                           n_redundant <span class="op">=</span> <span class="dv">0</span>, n_classes <span class="op">=</span> <span class="dv">2</span>, </span>
+<span id="cb25-3"><a href="notbaseline.html#cb25-3"></a>                           weights<span class="op">=</span>[<span class="fl">0.95</span>, <span class="fl">0.05</span>], random_state <span class="op">=</span> <span class="dv">123</span>)</span></code></pre></div>
 <p>Next, a neural network (Multi-Layer Perceptron MLP) is trained on the synthetic data.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb24-1"><a href="notbaseline.html#cb24-1"></a>nn <span class="op">=</span> MLPClassifier(hidden_layer_sizes<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">2</span>), max_iter <span class="op">=</span> <span class="dv">1000</span>, random_state <span class="op">=</span> <span class="dv">98</span>)</span>
-<span id="cb24-2"><a href="notbaseline.html#cb24-2"></a>nn.fit(X_train, y_train)</span>
-<span id="cb24-3"><a href="notbaseline.html#cb24-3"></a>y_pred <span class="op">=</span> nn.predict(X_test)</span>
-<span id="cb24-4"><a href="notbaseline.html#cb24-4"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
-<span id="cb24-5"><a href="notbaseline.html#cb24-5"></a><span class="bu">print</span>(<span class="ss">f&quot; Neural Network accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb25-1"><a href="notbaseline.html#cb25-1" tabindex="-1"></a><span class="co">#&gt;&gt; Neural Network accuracy 0.95</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb26-1"><a href="notbaseline.html#cb26-1"></a>nn <span class="op">=</span> MLPClassifier(hidden_layer_sizes<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">2</span>), max_iter <span class="op">=</span> <span class="dv">1000</span>, random_state <span class="op">=</span> <span class="dv">98</span>)</span>
+<span id="cb26-2"><a href="notbaseline.html#cb26-2"></a>nn.fit(X_train, y_train)</span>
+<span id="cb26-3"><a href="notbaseline.html#cb26-3"></a>y_pred <span class="op">=</span> nn.predict(X_test)</span>
+<span id="cb26-4"><a href="notbaseline.html#cb26-4"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb26-5"><a href="notbaseline.html#cb26-5"></a><span class="bu">print</span>(<span class="ss">f&quot; Neural Network accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb27-1"><a href="notbaseline.html#cb27-1" tabindex="-1"></a><span class="co">#&gt;&gt; Neural Network accuracy 0.95</span></span></code></pre></div>
 <p>The final accuracy is <span class="math inline">\(0.95\)</span>, which looks great. However, you are not convinced about the results and you decide to train a baseline model. Sci-kit learn provides a <code>DummyClassifier</code> and <code>DummyRegressor</code>. The following code fits a most-frequent <code>DummyClassifier</code>. The <code>strategy</code> argument specifies the type of dummy model: “most_frequent”, “prior”, “stratified”, “uniform”, or “constant”.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb26-1"><a href="notbaseline.html#cb26-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
-<span id="cb26-2"><a href="notbaseline.html#cb26-2"></a>dummy <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">&#39;most_frequent&#39;</span>, random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb26-3"><a href="notbaseline.html#cb26-3"></a>dummy.fit(X_train, y_train)</span>
-<span id="cb26-4"><a href="notbaseline.html#cb26-4"></a>y_pred <span class="op">=</span> dummy.predict(X_test)</span>
-<span id="cb26-5"><a href="notbaseline.html#cb26-5"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
-<span id="cb26-6"><a href="notbaseline.html#cb26-6"></a><span class="bu">print</span>(<span class="ss">f&quot; Dummy classifier (most frequent) accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb27-1"><a href="notbaseline.html#cb27-1" tabindex="-1"></a><span class="co">#&gt;&gt; Dummy classifier (most frequent) accuracy 0.95</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb28-1"><a href="notbaseline.html#cb28-1"></a><span class="im">from</span> sklearn.dummy <span class="im">import</span> DummyClassifier</span>
+<span id="cb28-2"><a href="notbaseline.html#cb28-2"></a>dummy <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">&#39;most_frequent&#39;</span>, random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb28-3"><a href="notbaseline.html#cb28-3"></a>dummy.fit(X_train, y_train)</span>
+<span id="cb28-4"><a href="notbaseline.html#cb28-4"></a>y_pred <span class="op">=</span> dummy.predict(X_test)</span>
+<span id="cb28-5"><a href="notbaseline.html#cb28-5"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb28-6"><a href="notbaseline.html#cb28-6"></a><span class="bu">print</span>(<span class="ss">f&quot; Dummy classifier (most frequent) accuracy </span><span class="sc">{</span>accuracy<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb29-1"><a href="notbaseline.html#cb29-1" tabindex="-1"></a><span class="co">#&gt;&gt; Dummy classifier (most frequent) accuracy 0.95</span></span></code></pre></div>
 <p>To our surprise, a most-frequent model performed the same as the neural network. This means that even though the accuracy seems high, the neural network is not providing any real benefit. In this case, the reason being that the classes are not balanced.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb28-1"><a href="notbaseline.html#cb28-1"></a>dummy <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">&#39;uniform&#39;</span>, random_state <span class="op">=</span> <span class="dv">123</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb29-1"><a href="notbaseline.html#cb29-1" tabindex="-1"></a><span class="co">#&gt;&gt; Dummy classifier (uniform) accuracy 0.48</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb30-1"><a href="notbaseline.html#cb30-1"></a>dummy <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">&#39;uniform&#39;</span>, random_state <span class="op">=</span> <span class="dv">123</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb31-1"><a href="notbaseline.html#cb31-1" tabindex="-1"></a><span class="co">#&gt;&gt; Dummy classifier (uniform) accuracy 0.48</span></span></code></pre></div>
 <p>The accuracy of the uniform model was <span class="math inline">\(0.48\)</span>. If our neural network had an accuracy of <span class="math inline">\(\approx 0.48\)</span> (which was not the case) it would had been an indication that the model was not learning.</p>
 
 <div class="rmdsolution">

@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-02" />
+<meta name="date" content="2025-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,7 @@ div.csl-indent {
 <li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
 <li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
 <li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
-<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Encoding categories as integers</a></li>
 <li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
 <li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
 <li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
@@ -210,10 +210,11 @@ div.csl-indent {
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
 <ul>
 <li class="chapter" data-level="B.1" data-path="appendixDatasets.html"><a href="appendixDatasets.html#california-housing"><i class="fa fa-check"></i><b>B.1</b> CALIFORNIA-HOUSING</a></li>
-<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.2</b> DIGITS</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.3</b> IRIS</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.4</b> WINE</a></li>
-<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.5</b> WISDM</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#diagnostic"><i class="fa fa-check"></i><b>B.2</b> DIAGNOSTIC</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.3</b> DIGITS</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.4</b> IRIS</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.5</b> WINE</a></li>
+<li class="chapter" data-level="B.6" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.6</b> WISDM</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="citing-this-book.html"><a href="citing-this-book.html"><i class="fa fa-check"></i>Citing this Book</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -250,18 +251,18 @@ Not saving the results after running an experiment.
 <li>Any other important information.</li>
 </ul>
 <p>The following code shows how to save a trained model with the <em>WINE</em> dataset so you can reuse it later on.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb43-1"><a href="savingresults.html#cb43-1"></a>tree <span class="op">=</span> DecisionTreeClassifier(random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb43-2"><a href="savingresults.html#cb43-2"></a>tree.fit(X_train, y_train)</span>
-<span id="cb43-3"><a href="savingresults.html#cb43-3"></a></span>
-<span id="cb43-4"><a href="savingresults.html#cb43-4"></a><span class="im">import</span> pickle</span>
-<span id="cb43-5"><a href="savingresults.html#cb43-5"></a><span class="co"># Save the model to hard drive.</span></span>
-<span id="cb43-6"><a href="savingresults.html#cb43-6"></a>pickle.dump(tree, <span class="bu">open</span>(<span class="st">&#39;tree.pickle&#39;</span>, <span class="st">&#39;wb&#39;</span>))</span>
-<span id="cb43-7"><a href="savingresults.html#cb43-7"></a></span>
-<span id="cb43-8"><a href="savingresults.html#cb43-8"></a><span class="co"># Load the model and make predictions.</span></span>
-<span id="cb43-9"><a href="savingresults.html#cb43-9"></a>loaded_tree <span class="op">=</span> pickle.load(<span class="bu">open</span>(<span class="st">&#39;tree.pickle&#39;</span>, <span class="st">&#39;rb&#39;</span>))</span>
-<span id="cb43-10"><a href="savingresults.html#cb43-10"></a>predictions <span class="op">=</span> loaded_tree.predict(X_test)</span>
-<span id="cb43-11"><a href="savingresults.html#cb43-11"></a><span class="bu">print</span>(<span class="ss">f&quot;Accuracy: </span><span class="sc">{</span>accuracy_score(y_test, predictions)<span class="sc">:.3f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb44-1"><a href="savingresults.html#cb44-1" tabindex="-1"></a><span class="co">#&gt;&gt; Accuracy: 0.865</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb45-1"><a href="savingresults.html#cb45-1"></a>tree <span class="op">=</span> DecisionTreeClassifier(random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb45-2"><a href="savingresults.html#cb45-2"></a>tree.fit(X_train, y_train)</span>
+<span id="cb45-3"><a href="savingresults.html#cb45-3"></a></span>
+<span id="cb45-4"><a href="savingresults.html#cb45-4"></a><span class="im">import</span> pickle</span>
+<span id="cb45-5"><a href="savingresults.html#cb45-5"></a><span class="co"># Save the model to hard drive.</span></span>
+<span id="cb45-6"><a href="savingresults.html#cb45-6"></a>pickle.dump(tree, <span class="bu">open</span>(<span class="st">&#39;tree.pickle&#39;</span>, <span class="st">&#39;wb&#39;</span>))</span>
+<span id="cb45-7"><a href="savingresults.html#cb45-7"></a></span>
+<span id="cb45-8"><a href="savingresults.html#cb45-8"></a><span class="co"># Load the model and make predictions.</span></span>
+<span id="cb45-9"><a href="savingresults.html#cb45-9"></a>loaded_tree <span class="op">=</span> pickle.load(<span class="bu">open</span>(<span class="st">&#39;tree.pickle&#39;</span>, <span class="st">&#39;rb&#39;</span>))</span>
+<span id="cb45-10"><a href="savingresults.html#cb45-10"></a>predictions <span class="op">=</span> loaded_tree.predict(X_test)</span>
+<span id="cb45-11"><a href="savingresults.html#cb45-11"></a><span class="bu">print</span>(<span class="ss">f&quot;Accuracy: </span><span class="sc">{</span>accuracy_score(y_test, predictions)<span class="sc">:.3f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb46-1"><a href="savingresults.html#cb46-1" tabindex="-1"></a><span class="co">#&gt;&gt; Accuracy: 0.865</span></span></code></pre></div>
 <p>In this case I used the ‘pickle’ library to persist the trained model. However, there are other alternatives depending on your use case like ‘ONNX’, ‘joblib’ and so on <span class="citation">(<a href="#ref-modelPersistance">scikit-learn-model-persistence 2025</a>)</span>.</p>
 </br>
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-02" />
+<meta name="date" content="2025-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +201,7 @@ div.csl-indent {
 <li class="chapter" data-level="11" data-path="notshuffling.html"><a href="notshuffling.html"><i class="fa fa-check"></i><b>11</b> Not shuffling the training data</a></li>
 <li class="chapter" data-level="12" data-path="savingresults.html"><a href="savingresults.html"><i class="fa fa-check"></i><b>12</b> Not saving the results</a></li>
 <li class="chapter" data-level="13" data-path="notparallelizing.html"><a href="notparallelizing.html"><i class="fa fa-check"></i><b>13</b> Not parallelizing</a></li>
-<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Enconding categories as integers</a></li>
+<li class="chapter" data-level="14" data-path="encodingintegers.html"><a href="encodingintegers.html"><i class="fa fa-check"></i><b>14</b> Encoding categories as integers</a></li>
 <li class="chapter" data-level="15" data-path="datachanges.html"><a href="datachanges.html"><i class="fa fa-check"></i><b>15</b> Forget data changes over time</a></li>
 <li class="chapter" data-level="16" data-path="interuservariance.html"><a href="interuservariance.html"><i class="fa fa-check"></i><b>16</b> Ignoring inter-user variance</a></li>
 <li class="chapter" data-level="17" data-path="wastingunlabeled.html"><a href="wastingunlabeled.html"><i class="fa fa-check"></i><b>17</b> Wasting unlabeled data</a></li>
@@ -210,10 +210,11 @@ div.csl-indent {
 <li class="chapter" data-level="B" data-path="appendixDatasets.html"><a href="appendixDatasets.html"><i class="fa fa-check"></i><b>B</b> Datasets</a>
 <ul>
 <li class="chapter" data-level="B.1" data-path="appendixDatasets.html"><a href="appendixDatasets.html#california-housing"><i class="fa fa-check"></i><b>B.1</b> CALIFORNIA-HOUSING</a></li>
-<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.2</b> DIGITS</a></li>
-<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.3</b> IRIS</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.4</b> WINE</a></li>
-<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.5</b> WISDM</a></li>
+<li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#diagnostic"><i class="fa fa-check"></i><b>B.2</b> DIAGNOSTIC</a></li>
+<li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.3</b> DIGITS</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.4</b> IRIS</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.5</b> WINE</a></li>
+<li class="chapter" data-level="B.6" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.6</b> WISDM</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="citing-this-book.html"><a href="citing-this-book.html"><i class="fa fa-check"></i>Citing this Book</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -243,24 +244,24 @@ Not parallelizing your models when having multiple CPU cores.
 <p></br></p>
 <p>Not parallelizing your code is not critical in the sense that it will not affect your results. However, I am including it here because it is a mistake not to save time (since time is valuable) when you have the resources (CPU cores) to run things faster. Having multiple CPUs/cores in your computer will not automatically make your code run faster. You need to explicitly parallelize it. Making parallel programs is not an easy task (and not every algorithm can be parallelized). Fortunately, many <code>scikit-learn</code> models have been parallelized and it is as easy as setting one parameter to take full advantage of this feature! This parameter is <code>n_jobs</code>. By default, <code>n_jobs=None</code> in which case it will only create one job when calling <code>fit()</code> and <code>predict()</code>. Setting it to <span class="math inline">\(-1\)</span> will use all the available processors/cores in your computer. However, I do not recommend using all your cores but leaving some of them free to work on other processes (operating system, browser, background applications, etc.), otherwise your computer may slow down. For example, my CPU has <span class="math inline">\(20\)</span> cores. So I set <code>n_jobs=15</code> to leave the remaining <span class="math inline">\(5\)</span> cores to execute other processes.</p>
 <p>The following example uses the <em>CALIFORNIA-HOUSING</em> dataset which has <span class="math inline">\(20640\)</span> instances and <span class="math inline">\(8\)</span> features. The target value is the median house value, thus, we will train a regression Random Forest.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb45-1"><a href="notparallelizing.html#cb45-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
-<span id="cb45-2"><a href="notparallelizing.html#cb45-2"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb45-3"><a href="notparallelizing.html#cb45-3"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb45-4"><a href="notparallelizing.html#cb45-4"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error</span>
-<span id="cb45-5"><a href="notparallelizing.html#cb45-5"></a><span class="im">import</span> time</span>
-<span id="cb45-6"><a href="notparallelizing.html#cb45-6"></a></span>
-<span id="cb45-7"><a href="notparallelizing.html#cb45-7"></a>df <span class="op">=</span> fetch_california_housing()</span>
-<span id="cb45-8"><a href="notparallelizing.html#cb45-8"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(df.data,</span>
-<span id="cb45-9"><a href="notparallelizing.html#cb45-9"></a>                                                    df.target,</span>
-<span id="cb45-10"><a href="notparallelizing.html#cb45-10"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.2</span>,</span>
-<span id="cb45-11"><a href="notparallelizing.html#cb45-11"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb45-12"><a href="notparallelizing.html#cb45-12"></a>rf <span class="op">=</span> RandomForestRegressor(random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb45-13"><a href="notparallelizing.html#cb45-13"></a>start <span class="op">=</span> time.time()</span>
-<span id="cb45-14"><a href="notparallelizing.html#cb45-14"></a>rf.fit(X_train, y_train)</span>
-<span id="cb45-15"><a href="notparallelizing.html#cb45-15"></a>y_pred <span class="op">=</span> rf.predict(X_test)</span>
-<span id="cb45-16"><a href="notparallelizing.html#cb45-16"></a>end <span class="op">=</span> time.time()</span>
-<span id="cb45-17"><a href="notparallelizing.html#cb45-17"></a><span class="bu">print</span>(<span class="ss">f&quot;MAE=</span><span class="sc">{</span>mean_absolute_error(y_test, y_pred)<span class="sc">:.3f}</span><span class="ss">&quot;</span> <span class="ss">f&quot; time (seconds) </span><span class="sc">{</span>end<span class="op">-</span>start<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb46-1"><a href="notparallelizing.html#cb46-1" tabindex="-1"></a><span class="co">#&gt;&gt; MAE=0.324 time (seconds) 26.49</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb47-1"><a href="notparallelizing.html#cb47-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
+<span id="cb47-2"><a href="notparallelizing.html#cb47-2"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb47-3"><a href="notparallelizing.html#cb47-3"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb47-4"><a href="notparallelizing.html#cb47-4"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error</span>
+<span id="cb47-5"><a href="notparallelizing.html#cb47-5"></a><span class="im">import</span> time</span>
+<span id="cb47-6"><a href="notparallelizing.html#cb47-6"></a></span>
+<span id="cb47-7"><a href="notparallelizing.html#cb47-7"></a>df <span class="op">=</span> fetch_california_housing()</span>
+<span id="cb47-8"><a href="notparallelizing.html#cb47-8"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(df.data,</span>
+<span id="cb47-9"><a href="notparallelizing.html#cb47-9"></a>                                                    df.target,</span>
+<span id="cb47-10"><a href="notparallelizing.html#cb47-10"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span id="cb47-11"><a href="notparallelizing.html#cb47-11"></a>                                                    random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb47-12"><a href="notparallelizing.html#cb47-12"></a>rf <span class="op">=</span> RandomForestRegressor(random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb47-13"><a href="notparallelizing.html#cb47-13"></a>start <span class="op">=</span> time.time()</span>
+<span id="cb47-14"><a href="notparallelizing.html#cb47-14"></a>rf.fit(X_train, y_train)</span>
+<span id="cb47-15"><a href="notparallelizing.html#cb47-15"></a>y_pred <span class="op">=</span> rf.predict(X_test)</span>
+<span id="cb47-16"><a href="notparallelizing.html#cb47-16"></a>end <span class="op">=</span> time.time()</span>
+<span id="cb47-17"><a href="notparallelizing.html#cb47-17"></a><span class="bu">print</span>(<span class="ss">f&quot;MAE=</span><span class="sc">{</span>mean_absolute_error(y_test, y_pred)<span class="sc">:.3f}</span><span class="ss">&quot;</span> <span class="ss">f&quot; time (seconds) </span><span class="sc">{</span>end<span class="op">-</span>start<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb48-1"><a href="notparallelizing.html#cb48-1" tabindex="-1"></a><span class="co">#&gt;&gt; MAE=0.324 time (seconds) 26.49</span></span></code></pre></div>
 <p>After splitting the data, I am training a <code>RandomForestRegressor()</code> and making predictions on the test set. Then, the mean absolute error (MAE) is computed. Finally, the MAE and the time it took to train the model and make the predictions is printed. Since this dataset is fairly large, it took <span class="math inline">\(26.49\)</span> seconds in my computer. By looking at the Windows task manager (Figure <a href="notparallelizing.html#fig:cpu-1">13.1</a> you can see that the Python program was using around <span class="math inline">\(5.8\%\)</span> of the CPU and only <span class="math inline">\(8\%\)</span> was used overall. Now let’s see if we can do better than that.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:cpu-1"></span>
 <img src="images/cpu-1.png" alt="CPU usage with one job." width="90%" />
@@ -269,13 +270,13 @@ Figure 13.1: CPU usage with one job.
 </p>
 </div>
 <p>In the following code snippet, I am setting the <code>n_jobs</code> parameter to <span class="math inline">\(15\)</span> when creating the <code>RandomForestRegressor()</code> object. My computer has <span class="math inline">\(20\)</span> cores, so I am leaving <span class="math inline">\(5\)</span> free cores for other tasks.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb47-1"><a href="notparallelizing.html#cb47-1"></a>rf <span class="op">=</span> RandomForestRegressor(random_state <span class="op">=</span> <span class="dv">123</span>, n_jobs <span class="op">=</span> <span class="dv">15</span>)</span>
-<span id="cb47-2"><a href="notparallelizing.html#cb47-2"></a>start <span class="op">=</span> time.time()</span>
-<span id="cb47-3"><a href="notparallelizing.html#cb47-3"></a>rf.fit(X_train, y_train)</span>
-<span id="cb47-4"><a href="notparallelizing.html#cb47-4"></a>y_pred <span class="op">=</span> rf.predict(X_test)</span>
-<span id="cb47-5"><a href="notparallelizing.html#cb47-5"></a>end <span class="op">=</span> time.time()</span>
-<span id="cb47-6"><a href="notparallelizing.html#cb47-6"></a><span class="bu">print</span>(<span class="ss">f&quot;MAE=</span><span class="sc">{</span>mean_absolute_error(y_test, y_pred)<span class="sc">:.3f}</span><span class="ss">&quot;</span> <span class="ss">f&quot; time (seconds) </span><span class="sc">{</span>end<span class="op">-</span>start<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb48-1"><a href="notparallelizing.html#cb48-1" tabindex="-1"></a><span class="co">#&gt;&gt; MAE=0.324 time (seconds) 3.98</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb49-1"><a href="notparallelizing.html#cb49-1"></a>rf <span class="op">=</span> RandomForestRegressor(random_state <span class="op">=</span> <span class="dv">123</span>, n_jobs <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb49-2"><a href="notparallelizing.html#cb49-2"></a>start <span class="op">=</span> time.time()</span>
+<span id="cb49-3"><a href="notparallelizing.html#cb49-3"></a>rf.fit(X_train, y_train)</span>
+<span id="cb49-4"><a href="notparallelizing.html#cb49-4"></a>y_pred <span class="op">=</span> rf.predict(X_test)</span>
+<span id="cb49-5"><a href="notparallelizing.html#cb49-5"></a>end <span class="op">=</span> time.time()</span>
+<span id="cb49-6"><a href="notparallelizing.html#cb49-6"></a><span class="bu">print</span>(<span class="ss">f&quot;MAE=</span><span class="sc">{</span>mean_absolute_error(y_test, y_pred)<span class="sc">:.3f}</span><span class="ss">&quot;</span> <span class="ss">f&quot; time (seconds) </span><span class="sc">{</span>end<span class="op">-</span>start<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb50-1"><a href="notparallelizing.html#cb50-1" tabindex="-1"></a><span class="co">#&gt;&gt; MAE=0.324 time (seconds) 3.98</span></span></code></pre></div>
 <p>From the results, we can see that even though the performance was the same (<span class="math inline">\(0.324\)</span>) it only took <span class="math inline">\(3.98\)</span> seconds to complete! Figure <a href="notparallelizing.html#fig:cpu-2">13.2</a> shows my task manager.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:cpu-2"></span>
 <img src="images/cpu-2.png" alt="CPU usage with $15$ jobs." width="90%" />
