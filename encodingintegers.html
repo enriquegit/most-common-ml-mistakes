@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-04" />
+<meta name="date" content="2025-06-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -212,9 +212,10 @@ div.csl-indent {
 <li class="chapter" data-level="B.1" data-path="appendixDatasets.html"><a href="appendixDatasets.html#california-housing"><i class="fa fa-check"></i><b>B.1</b> CALIFORNIA-HOUSING</a></li>
 <li class="chapter" data-level="B.2" data-path="appendixDatasets.html"><a href="appendixDatasets.html#diagnostic"><i class="fa fa-check"></i><b>B.2</b> DIAGNOSTIC</a></li>
 <li class="chapter" data-level="B.3" data-path="appendixDatasets.html"><a href="appendixDatasets.html#digits"><i class="fa fa-check"></i><b>B.3</b> DIGITS</a></li>
-<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.4</b> IRIS</a></li>
-<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.5</b> WINE</a></li>
-<li class="chapter" data-level="B.6" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.6</b> WISDM</a></li>
+<li class="chapter" data-level="B.4" data-path="appendixDatasets.html"><a href="appendixDatasets.html#income"><i class="fa fa-check"></i><b>B.4</b> INCOME</a></li>
+<li class="chapter" data-level="B.5" data-path="appendixDatasets.html"><a href="appendixDatasets.html#iris"><i class="fa fa-check"></i><b>B.5</b> IRIS</a></li>
+<li class="chapter" data-level="B.6" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wine"><i class="fa fa-check"></i><b>B.6</b> WINE</a></li>
+<li class="chapter" data-level="B.7" data-path="appendixDatasets.html"><a href="appendixDatasets.html#wisdm"><i class="fa fa-check"></i><b>B.7</b> WISDM</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="citing-this-book.html"><a href="citing-this-book.html"><i class="fa fa-check"></i>Citing this Book</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -237,7 +238,73 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="encodingintegers" class="section level1 hasAnchor" number="14">
 <h1><span class="header-section-number">Mistake 14:</span> Encoding categories as integers<a href="encodingintegers.html#encodingintegers" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Chapter under construction…</p>
+
+<div class="rmdmistake">
+Encoding non-ordinal categorical variables (when functioning as features) as consecutive integers introduces implicit ordering (which may be something you don’t want).
+</div>
+<p></br></p>
+<p>Many machine learning algorithm implementations require all data to be in numeric format. This is the case of neural networks and several scikit-learn models. However, a dataset can have categorical variables as well. For example, clothing sizes: <em>small</em>, <em>medium</em>, <em>large</em>. These can be converted into integers <span class="math inline">\(1\)</span>, <span class="math inline">\(2\)</span>, and <span class="math inline">\(3\)</span>, respectively. In this case, this variable is <em>ordinal</em>. This means that the values have an order: <em>small</em> <span class="math inline">\(&lt;\)</span> <em>medium</em> <span class="math inline">\(&lt;\)</span> <em>large</em>. So, it makes sense to encode the values with integers <span class="math inline">\(1...n\)</span> since those integers represent the fact that small (<span class="math inline">\(1\)</span>) comes before medium (<span class="math inline">\(2\)</span>) and so on.</p>
+<p>Now, take for example a predictor variable <em>job title</em> with values: <em>dentist</em>, <em>geologist</em>, and <em>accountant</em>. This variable is not ordinal since there is no implicit order between its values. We may be tempted to convert this variable as integers as well. However, doing so can inadvertently assign an implicit order to the variables. Then, how do you convert a non-ordinal predictor variable into a numeric format? Answer: You can one-hot-encode the variable. One-hot-encoding consists of replacing the original variable with <span class="math inline">\(n\)</span> boolean variables called <em>dummy variables</em>, where <span class="math inline">\(n\)</span> is the number of unique values. Each new dummy variable corresponds to one of the possible values.</p>
+<p>Figure <a href="encodingintegers.html#fig:one-hot-enconding">14.1</a> shows an example database where the <em>Job title</em> column is categorical. After one-hot-encoding it, you can see that there is a column for each possible job title. Since Ingrid is a dentist, the corresponding column is marked with a <span class="math inline">\(1\)</span> and the remaining ones are set to <span class="math inline">\(0\)</span> to indicate that she is not a geologist, nor an accountant.</p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:one-hot-enconding"></span>
+<img src="images/one-hot-enconding.png" alt="Example of one-hot-encoding the job title variable." width="90%" />
+<p class="caption">
+Figure 14.1: Example of one-hot-encoding the job title variable.
+</p>
+</div>
+<p>When one-hot-encoding a variable that is a predictor/feature, there is something that you need to pay attention to which is called the <em>dummy variable trap</em>. This means that the value of one of the dummy variables can always be predicted by looking at the value of the other ones. For example in the case of Norma, if we know that the columns <em>dentist</em> and <em>accountant</em> are <span class="math inline">\(0\)</span>, we can infer that <em>geologist</em> must be <span class="math inline">\(1\)</span>. Or if we know that <em>dentist</em> is <span class="math inline">\(0\)</span> and <em>geologist</em> is <span class="math inline">\(1\)</span>, then we can infer that <em>accountant</em> is <span class="math inline">\(0\)</span> because there can be at most one column with a <span class="math inline">\(1\)</span>. This creates unnecessary redundancies and correlations that can affect a predictive model. However, fixing this is easy; just remove one of the dummy variables (can be any, for example the first one).</p>
+<p>The following example loads and prints the <em>INCOME</em> dataset. For simplicity, only four columns are selected. Figure <a href="encodingintegers.html#fig:income-head">14.2</a> shows the first rows.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb51-1"><a href="encodingintegers.html#cb51-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb51-2"><a href="encodingintegers.html#cb51-2"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&#39;data/income/adult.data&#39;</span>, header <span class="op">=</span> <span class="va">None</span>)</span>
+<span id="cb51-3"><a href="encodingintegers.html#cb51-3"></a></span>
+<span id="cb51-4"><a href="encodingintegers.html#cb51-4"></a><span class="co"># Only select some columns.</span></span>
+<span id="cb51-5"><a href="encodingintegers.html#cb51-5"></a>df <span class="op">=</span> df.iloc[:, [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">7</span>, <span class="op">-</span><span class="dv">1</span>]]</span>
+<span id="cb51-6"><a href="encodingintegers.html#cb51-6"></a>df.columns <span class="op">=</span> [<span class="st">&#39;age&#39;</span>, <span class="st">&#39;workclass&#39;</span>, <span class="st">&#39;relationship&#39;</span>, <span class="st">&#39;income&#39;</span>]</span>
+<span id="cb51-7"><a href="encodingintegers.html#cb51-7"></a>df.head()</span></code></pre></div>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:income-head"></span>
+<img src="images/income-head.png" alt="First rows of the INCOME dataset." width="50%" />
+<p class="caption">
+Figure 14.2: First rows of the <em>INCOME</em> dataset.
+</p>
+</div>
+<p>The <em>relationship</em> column has six unique values.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb52-1"><a href="encodingintegers.html#cb52-1"></a><span class="bu">print</span>(df[<span class="st">&#39;relationship&#39;</span>].unique())</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb53-1"><a href="encodingintegers.html#cb53-1" tabindex="-1"></a><span class="co">#&gt;&gt; [&#39; Not-in-family&#39; &#39; Husband&#39; &#39; Wife&#39; &#39; Own-child&#39;</span></span>
+<span id="cb53-2"><a href="encodingintegers.html#cb53-2" tabindex="-1"></a><span class="co">#&gt;&gt;    &#39; Unmarried&#39; &#39; Other-relative&#39;]</span></span></code></pre></div>
+<p>The <em>relationship</em> column is a non-ordinal variable. So let’s one-hot-enconde it using the <code>get_dummies()</code> function from pandas. The <code>drop_first = True</code> tells pandas to remove the first dummy variable so we avoid the dummy variable trap. Figure <a href="encodingintegers.html#fig:income-head-2">14.3</a> shows the resulting one-hot-encoded variable.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb54-1"><a href="encodingintegers.html#cb54-1"></a>df_encoded <span class="op">=</span> pd.get_dummies(df, columns<span class="op">=</span>[<span class="st">&#39;relationship&#39;</span>], drop_first <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb54-2"><a href="encodingintegers.html#cb54-2"></a>df_encoded.head()</span></code></pre></div>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:income-head-2"></span>
+<img src="images/income-head-2.png" alt="INCOME dataset after one-hot-encoding the relationship varable." width="100%" />
+<p class="caption">
+Figure 14.3: <em>INCOME</em> dataset after one-hot-encoding the <em>relationship</em> varable.
+</p>
+</div>
+<p>Note that the dummy variables are of type boolean. In some cases, depending on the expected format, you may need to replace <em>True</em> with a <span class="math inline">\(1\)</span> and <em>False</em> with a <span class="math inline">\(0\)</span>. The following code accomplishes that and Figure <a href="encodingintegers.html#fig:income-head-3">14.4</a> shows the result.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb55-1"><a href="encodingintegers.html#cb55-1"></a><span class="cf">for</span> col <span class="kw">in</span> df_encoded.columns:</span>
+<span id="cb55-2"><a href="encodingintegers.html#cb55-2"></a>    <span class="cf">if</span> col.startswith(<span class="st">&#39;relationship_&#39;</span>):</span>
+<span id="cb55-3"><a href="encodingintegers.html#cb55-3"></a>        df_encoded[col] <span class="op">=</span> df_encoded[col].astype(<span class="bu">int</span>)</span>
+<span id="cb55-4"><a href="encodingintegers.html#cb55-4"></a>df_encoded.head()</span></code></pre></div>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:income-head-3"></span>
+<img src="images/income-head-3.png" alt="INCOME dataset after one-hot-encoding the relationship variable and converting booleans into integers (\(0\),\(1\))." width="100%" />
+<p class="caption">
+Figure 14.4: <em>INCOME</em> dataset after one-hot-encoding the <em>relationship</em> variable and converting booleans into integers (<span class="math inline">\(0\)</span>,<span class="math inline">\(1\)</span>).
+</p>
+</div>
+<p>If you intend to use the <em>workclass</em> column as a feature, then, it should also be one-hot-encoded.</p>
+
+<div class="rmdcaution">
+When the variable you are one-hot-encoding is the class (for classification problems), you should not remove any of the newly created dummy variables, that is, <code>drop_first = False</code>. One-hot-encoding the class is required by some neural network frameworks.
+</div>
+</br>
+
+<div class="rmdsolution">
+Instead of converting a non-ordinal catategorical variable into integers, you can one-hot-encode it to avoid introducing ordering dependencies.
+</div>
 
 </div>
             </section>

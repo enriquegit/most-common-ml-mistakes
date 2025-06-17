@@ -18,6 +18,10 @@ fig:wisdm-sorted
 fig:wisdm-shuffled
 fig:cpu-1
 fig:cpu-2
+fig:one-hot-enconding
+fig:income-head
+fig:income-head-2
+fig:income-head-3
 notunderstandingdata
 trainperformance
 settingseed
@@ -40,6 +44,7 @@ appendixDatasets
 california-housing
 diagnostic
 digits
+income
 iris
 wine
 wisdm
