@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-06-16" />
+<meta name="date" content="2025-06-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -313,12 +313,12 @@ Note that it is important to change the random state in <code>train_test_split()
 Figure 9.2: Histogram of accuracy.
 </p>
 </div>
-<p>The difference between the models’ accuracies can be further validated with a paired t-test.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb36-1"><a href="accountingvariance.html#cb36-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_rel</span>
-<span id="cb36-2"><a href="accountingvariance.html#cb36-2"></a>t_stat, p_value <span class="op">=</span> ttest_rel(accuracy_tree, accuracy_bayes)</span>
-<span id="cb36-3"><a href="accountingvariance.html#cb36-3"></a><span class="bu">print</span>(<span class="ss">f&quot;p-value: </span><span class="sc">{</span>p_value<span class="sc">:.10f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb37-1"><a href="accountingvariance.html#cb37-1" tabindex="-1"></a><span class="co">#&gt;&gt; p-value: 0.0000000054</span></span></code></pre></div>
-<p>In this example we used Monte Carlo cross-validation to robustly compare two models. However, you should also account for variance when tuning a model’s hyper-parameters, choosing pre-processing methods, data transformations, etc.</p>
+<p>The difference between the models’ accuracies can be further validated with a Wilcoxon test.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb36-1"><a href="accountingvariance.html#cb36-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> wilcoxon</span>
+<span id="cb36-2"><a href="accountingvariance.html#cb36-2"></a>stat, p <span class="op">=</span> wilcoxon(accuracy_tree, accuracy_bayes)</span>
+<span id="cb36-3"><a href="accountingvariance.html#cb36-3"></a><span class="bu">print</span>(<span class="ss">f&quot;p-value: </span><span class="sc">{</span>p<span class="sc">:.10f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb37-1"><a href="accountingvariance.html#cb37-1" tabindex="-1"></a><span class="co">#&gt;&gt; p-value: 0.0000000002</span></span></code></pre></div>
+<p>Since the p-value is <span class="math inline">\(&lt;0.05\)</span> we can say that the difference between the models is significant. In this example we used Monte Carlo cross-validation to robustly compare two models. However, you should also account for variance when tuning a model’s hyper-parameters, choosing pre-processing methods, data transformations, etc.</p>
 </br>
 
 <div class="rmdsolution">
