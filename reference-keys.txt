@@ -22,6 +22,7 @@ fig:one-hot-enconding
 fig:income-head
 fig:income-head-2
 fig:income-head-3
+fig:louo
 notunderstandingdata
 trainperformance
 settingseed
