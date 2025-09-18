@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-09-17" />
+<meta name="date" content="2025-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -188,7 +188,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="notunderstandingdata.html"><a href="notunderstandingdata.html"><i class="fa fa-check"></i><b>1</b> Not understanding the data</a></li>
+<li class="chapter" data-level="1" data-path="lackinginsight.html"><a href="lackinginsight.html"><i class="fa fa-check"></i><b>1</b> Lacking insight into the data</a></li>
 <li class="chapter" data-level="2" data-path="trainperformance.html"><a href="trainperformance.html"><i class="fa fa-check"></i><b>2</b> Reporting train performance</a></li>
 <li class="chapter" data-level="3" data-path="settingseed.html"><a href="settingseed.html"><i class="fa fa-check"></i><b>3</b> Not setting a seed value</a></li>
 <li class="chapter" data-level="4" data-path="irrelevantfeatures.html"><a href="irrelevantfeatures.html"><i class="fa fa-check"></i><b>4</b> Including irrelevant features</a></li>
@@ -243,7 +243,7 @@ div.csl-indent {
 Ignoring differences in features’ scales.
 </div>
 <p></br></p>
-<p>As previously mentioned (see Mistake <a href="notunderstandingdata.html#notunderstandingdata">1</a>), it is always a good idea to perform an exploratory analysis of your data. At this point, you may realize that the features have different scales. For example, let’s load the <em>DIAGNOSTIC</em> dataset and compute some summary statistics with the <code>describe()</code> function. Figure <a href="ignoringscales.html#fig:scales-1">5.1</a> shows a summary of the data frame.</p>
+<p>As previously mentioned (see Mistake <a href="#notunderstandingdata"><strong>??</strong></a>), it is always a good idea to perform an exploratory analysis of your data. At this point, you may realize that the features have different scales. For example, let’s load the <em>DIAGNOSTIC</em> dataset and compute some summary statistics with the <code>describe()</code> function. Figure <a href="ignoringscales.html#fig:scales-1">5.1</a> shows a summary of the data frame.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb15-1"><a href="ignoringscales.html#cb15-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb15-2"><a href="ignoringscales.html#cb15-2"></a>data <span class="op">=</span> load_breast_cancer(as_frame<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb15-3"><a href="ignoringscales.html#cb15-3"></a>data.frame.describe()</span></code></pre></div>

@@ -25,7 +25,7 @@ fig:income-head-3
 eq:wassersteinDistance
 fig:data-drift-comparison
 fig:louo
-notunderstandingdata
+lackinginsight
 trainperformance
 settingseed
 irrelevantfeatures

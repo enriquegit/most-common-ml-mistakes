@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Mistake 1: Not understanding the data | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM</title>
+  <title>Mistake 1: Lacking insight into the data | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM</title>
   <meta name="description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Mistake 1: Not understanding the data | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
+  <meta property="og:title" content="Mistake 1: Lacking insight into the data | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/images/cover.jpg" />
   <meta property="og:description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Mistake 1: Not understanding the data | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
+  <meta name="twitter:title" content="Mistake 1: Lacking insight into the data | MOST COMMON MISTAKES IN MACHINE LEARNING AND HOW TO AVOID THEM" />
   
   <meta name="twitter:description" content="This is a compilation of the most common mistakes in machine learning and how to avoid them. The book includes examples in the Python programming language. After reading this book, you will be ready to build more robust and trustworthy machine learning models." />
   <meta name="twitter:image" content="/images/cover.jpg" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-09-17" />
+<meta name="date" content="2025-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -188,7 +188,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="notunderstandingdata.html"><a href="notunderstandingdata.html"><i class="fa fa-check"></i><b>1</b> Not understanding the data</a></li>
+<li class="chapter" data-level="1" data-path="lackinginsight.html"><a href="lackinginsight.html"><i class="fa fa-check"></i><b>1</b> Lacking insight into the data</a></li>
 <li class="chapter" data-level="2" data-path="trainperformance.html"><a href="trainperformance.html"><i class="fa fa-check"></i><b>2</b> Reporting train performance</a></li>
 <li class="chapter" data-level="3" data-path="settingseed.html"><a href="settingseed.html"><i class="fa fa-check"></i><b>3</b> Not setting a seed value</a></li>
 <li class="chapter" data-level="4" data-path="irrelevantfeatures.html"><a href="irrelevantfeatures.html"><i class="fa fa-check"></i><b>4</b> Including irrelevant features</a></li>
@@ -236,29 +236,29 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="notunderstandingdata" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Mistake 1:</span> Not understanding the data<a href="notunderstandingdata.html#notunderstandingdata" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="lackinginsight" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Mistake 1:</span> Lacking insight into the data<a href="lackinginsight.html#lackinginsight" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 
 <div class="rmdmistake">
-Not understanding the details of the dataset before processing it and training models.
+Lacking insight into the data before analysing and processing it can lead to subsequent errors.
 </div>
 <p></br></p>
 <p>With today’s newest software tools, it is straightforward to load a dataset and start training machine learning models. However, this can lead to erroneous models or incorrect conclusions if performed without having a good understanding of the data. Before delving into writing code, it is advisable to carefully read the dataset documentation and if possible, to talk with the authors in case you did not take part in the data collection process. By doing so, you may find out that some of the data are not relevant and thus, should not be included in your analysis. On the other hand, you may learn that there are important details that if not taken into account, could completely change the results. After having a clear high-level picture of the dataset, it is a good idea to perform an exploratory data analysis (EDA). This will allow you to better understand the structure of the data and find possible errors. An EDA consists of a set of tools, methods, and visualizations that you can employ to inspect your data. For example, boxplots, correlation plots, histograms, scatter plots, and so on. It is also a good idea to check the variables’ types (numeric, boolean, string, etc.). At this stage you can also check for missing values. If most of the values of a variable are missing or it has a constant value, then you may want to discard it. Another source of error is having duplicate rows and outliers. An EDA will allow you to find those types of errors.</p>
 <p>There are tools that can help you with the EDA. For example, the <code>ydata-profiling</code> package <span class="citation">(<a href="#ref-ydata">ydata-profiling team 2025</a>)</span> generates a report with summary statistics and plots for a given pandas data frame with a few lines of code. The following example loads the <em>IRIS</em> dataset and generates an EDA report.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb1-1"><a href="notunderstandingdata.html#cb1-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
-<span id="cb1-2"><a href="notunderstandingdata.html#cb1-2"></a>data <span class="op">=</span> load_iris(as_frame <span class="op">=</span> <span class="va">True</span>).frame</span>
-<span id="cb1-3"><a href="notunderstandingdata.html#cb1-3"></a></span>
-<span id="cb1-4"><a href="notunderstandingdata.html#cb1-4"></a><span class="im">from</span> ydata_profiling <span class="im">import</span> ProfileReport</span>
-<span id="cb1-5"><a href="notunderstandingdata.html#cb1-5"></a>profile <span class="op">=</span> ProfileReport(data, title<span class="op">=</span><span class="st">&quot;My Report&quot;</span>)</span>
-<span id="cb1-6"><a href="notunderstandingdata.html#cb1-6"></a>profile</span></code></pre></div>
-<p>Figure <a href="notunderstandingdata.html#fig:report-stats">1.1</a> shows the generated overall statistics of the dataset. Here, you can see that there was one duplicate row, four numeric and one categorical variables, and so on.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb1-1"><a href="lackinginsight.html#cb1-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb1-2"><a href="lackinginsight.html#cb1-2"></a>data <span class="op">=</span> load_iris(as_frame <span class="op">=</span> <span class="va">True</span>).frame</span>
+<span id="cb1-3"><a href="lackinginsight.html#cb1-3"></a></span>
+<span id="cb1-4"><a href="lackinginsight.html#cb1-4"></a><span class="im">from</span> ydata_profiling <span class="im">import</span> ProfileReport</span>
+<span id="cb1-5"><a href="lackinginsight.html#cb1-5"></a>profile <span class="op">=</span> ProfileReport(data, title<span class="op">=</span><span class="st">&quot;My Report&quot;</span>)</span>
+<span id="cb1-6"><a href="lackinginsight.html#cb1-6"></a>profile</span></code></pre></div>
+<p>Figure <a href="lackinginsight.html#fig:report-stats">1.1</a> shows the generated overall statistics of the dataset. Here, you can see that there was one duplicate row, four numeric and one categorical variables, and so on.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:report-stats"></span>
 <img src="images/report-stats.png" alt="Statistics of the data frame." width="90%" />
 <p class="caption">
 Figure 1.1: Statistics of the data frame.
 </p>
 </div>
-<p>The report also generates statistics for each individual variable. Figure <a href="notunderstandingdata.html#fig:report-histogram">1.2</a> shows the report for <em>sepal length</em> along with its histogram. The report also generates information about interactions between variables in the form of scatter plots and correlation plots.</p>
+<p>The report also generates statistics for each individual variable. Figure <a href="lackinginsight.html#fig:report-histogram">1.2</a> shows the report for <em>sepal length</em> along with its histogram. The report also generates information about interactions between variables in the form of scatter plots and correlation plots.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:report-histogram"></span>
 <img src="images/report-histogram.png" alt="Histogram of one of the variables." width="90%" />
 <p class="caption">

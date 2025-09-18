@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-09-17" />
+<meta name="date" content="2025-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -188,7 +188,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="notunderstandingdata.html"><a href="notunderstandingdata.html"><i class="fa fa-check"></i><b>1</b> Not understanding the data</a></li>
+<li class="chapter" data-level="1" data-path="lackinginsight.html"><a href="lackinginsight.html"><i class="fa fa-check"></i><b>1</b> Lacking insight into the data</a></li>
 <li class="chapter" data-level="2" data-path="trainperformance.html"><a href="trainperformance.html"><i class="fa fa-check"></i><b>2</b> Reporting train performance</a></li>
 <li class="chapter" data-level="3" data-path="settingseed.html"><a href="settingseed.html"><i class="fa fa-check"></i><b>3</b> Not setting a seed value</a></li>
 <li class="chapter" data-level="4" data-path="irrelevantfeatures.html"><a href="irrelevantfeatures.html"><i class="fa fa-check"></i><b>4</b> Including irrelevant features</a></li>
@@ -273,7 +273,7 @@ Figure 4.1: <em>WISDM</em> dataset.
 <p>The first thing to note is the <code>UNIQUE_ID</code> and <code>user</code> columns. The <code>UNIQUE_ID</code> indicates the row number and <code>user</code>is the user id. This information is irrelevant for the problem so the columns can be discarded.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb12-1"><a href="irrelevantfeatures.html#cb12-1"></a><span class="co"># Remove columns &#39;UNIQUE_ID&#39; and &#39;user&#39;</span></span>
 <span id="cb12-2"><a href="irrelevantfeatures.html#cb12-2"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">&#39;UNIQUE_ID&#39;</span>, <span class="st">&#39;user&#39;</span>])</span></code></pre></div>
-<p>An EDA analysis (see Mistake <a href="notunderstandingdata.html#notunderstandingdata">1</a>) can also be used to spot irrelevant variables. The report using the <code>ydata-profiling</code> package generates some alerts (see Figure <a href="irrelevantfeatures.html#fig:wisdm-alerts">4.2</a>).</p>
+<p>An EDA analysis (see Mistake <a href="#notunderstandingdata"><strong>??</strong></a>) can also be used to spot irrelevant variables. The report using the <code>ydata-profiling</code> package generates some alerts (see Figure <a href="irrelevantfeatures.html#fig:wisdm-alerts">4.2</a>).</p>
 
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:wisdm-alerts"></span>
 <img src="images/wisdm-alerts.png" alt="WISDM alerts." width="100%" />
@@ -298,7 +298,7 @@ Figure 4.2: <em>WISDM</em> alerts.
 </br>
 
 <div class="rmdsolution">
-You can use several tools to identify irrelevant features such as correlation plots, variance thresholds, histograms, and so on. An exploratory data analyis will help you identify irrelevant variabls (see for example, Mistake <a href="notunderstandingdata.html#notunderstandingdata">1</a>).
+You can use several tools to identify irrelevant features such as correlation plots, variance thresholds, histograms, and so on. An exploratory data analyis will help you identify irrelevant variabls (see for example, Mistake <a href="#notunderstandingdata"><strong>??</strong></a>).
 </div>
 
 </div>
