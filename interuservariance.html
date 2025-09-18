@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-09-05" />
+<meta name="date" content="2025-09-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -255,46 +255,46 @@ Figure 16.1: Procedure of the leave-one-user-out validation scheme. At each iter
 </div>
 <p>This validation scheme will provide more accurate estimates of your model when deployed in real life. This does not mean that a user-independent model is better than a mixed model. The evaluation scheme you use will depend on your use case. A mixed model is completely fine if it is guaranteed that data from the final user will be included in the training phase. For example, asking the user to go through a calibration phase.</p>
 <p>The following example uses the <em>WISDM</em> dataset for activity recognition. The dataset includes data from <span class="math inline">\(36\)</span> users. The next code snippet uses a mix-model approach by performing <span class="math inline">\(10\)</span>-fold cross validation. The <em>user</em> column which identifies every user with an id, is removed before splitting the data.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb56-1"><a href="interuservariance.html#cb56-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
-<span id="cb56-2"><a href="interuservariance.html#cb56-2"></a></span>
-<span id="cb56-3"><a href="interuservariance.html#cb56-3"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">&#39;class&#39;</span>,<span class="st">&#39;user&#39;</span>]).values</span>
-<span id="cb56-4"><a href="interuservariance.html#cb56-4"></a>y <span class="op">=</span> df[<span class="st">&quot;class&quot;</span>].values</span>
-<span id="cb56-5"><a href="interuservariance.html#cb56-5"></a>kf <span class="op">=</span> StratifiedKFold(n_splits <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb56-6"><a href="interuservariance.html#cb56-6"></a>accuracies <span class="op">=</span> []</span>
-<span id="cb56-7"><a href="interuservariance.html#cb56-7"></a></span>
-<span id="cb56-8"><a href="interuservariance.html#cb56-8"></a><span class="cf">for</span> i, (train_indx, test_indx) <span class="kw">in</span> <span class="bu">enumerate</span>(kf.split(X, y)):</span>
-<span id="cb56-9"><a href="interuservariance.html#cb56-9"></a>    X_train <span class="op">=</span> X[train_indx]</span>
-<span id="cb56-10"><a href="interuservariance.html#cb56-10"></a>    y_train <span class="op">=</span> y[train_indx]</span>
-<span id="cb56-11"><a href="interuservariance.html#cb56-11"></a>    X_test <span class="op">=</span> X[test_indx]</span>
-<span id="cb56-12"><a href="interuservariance.html#cb56-12"></a>    y_test <span class="op">=</span> y[test_indx]</span>
-<span id="cb56-13"><a href="interuservariance.html#cb56-13"></a>    rf <span class="op">=</span> RandomForestClassifier(random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb56-14"><a href="interuservariance.html#cb56-14"></a>    rf.fit(X_train, y_train)</span>
-<span id="cb56-15"><a href="interuservariance.html#cb56-15"></a>    predictions <span class="op">=</span> rf.predict(X_test)</span>
-<span id="cb56-16"><a href="interuservariance.html#cb56-16"></a>    accuracies.append(accuracy_score(y_test, predictions))</span>
-<span id="cb56-17"><a href="interuservariance.html#cb56-17"></a></span>
-<span id="cb56-18"><a href="interuservariance.html#cb56-18"></a><span class="bu">print</span>(np.mean(accuracies))</span></code></pre></div>
-<div class="sourceCode" id="cb57"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb57-1"><a href="interuservariance.html#cb57-1" tabindex="-1"></a><span class="co">#&gt;&gt; 0.7779597028872323</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb59-1"><a href="interuservariance.html#cb59-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb59-2"><a href="interuservariance.html#cb59-2"></a></span>
+<span id="cb59-3"><a href="interuservariance.html#cb59-3"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">&#39;class&#39;</span>,<span class="st">&#39;user&#39;</span>]).values</span>
+<span id="cb59-4"><a href="interuservariance.html#cb59-4"></a>y <span class="op">=</span> df[<span class="st">&quot;class&quot;</span>].values</span>
+<span id="cb59-5"><a href="interuservariance.html#cb59-5"></a>kf <span class="op">=</span> StratifiedKFold(n_splits <span class="op">=</span> <span class="dv">10</span>)</span>
+<span id="cb59-6"><a href="interuservariance.html#cb59-6"></a>accuracies <span class="op">=</span> []</span>
+<span id="cb59-7"><a href="interuservariance.html#cb59-7"></a></span>
+<span id="cb59-8"><a href="interuservariance.html#cb59-8"></a><span class="cf">for</span> i, (train_indx, test_indx) <span class="kw">in</span> <span class="bu">enumerate</span>(kf.split(X, y)):</span>
+<span id="cb59-9"><a href="interuservariance.html#cb59-9"></a>    X_train <span class="op">=</span> X[train_indx]</span>
+<span id="cb59-10"><a href="interuservariance.html#cb59-10"></a>    y_train <span class="op">=</span> y[train_indx]</span>
+<span id="cb59-11"><a href="interuservariance.html#cb59-11"></a>    X_test <span class="op">=</span> X[test_indx]</span>
+<span id="cb59-12"><a href="interuservariance.html#cb59-12"></a>    y_test <span class="op">=</span> y[test_indx]</span>
+<span id="cb59-13"><a href="interuservariance.html#cb59-13"></a>    rf <span class="op">=</span> RandomForestClassifier(random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb59-14"><a href="interuservariance.html#cb59-14"></a>    rf.fit(X_train, y_train)</span>
+<span id="cb59-15"><a href="interuservariance.html#cb59-15"></a>    predictions <span class="op">=</span> rf.predict(X_test)</span>
+<span id="cb59-16"><a href="interuservariance.html#cb59-16"></a>    accuracies.append(accuracy_score(y_test, predictions))</span>
+<span id="cb59-17"><a href="interuservariance.html#cb59-17"></a></span>
+<span id="cb59-18"><a href="interuservariance.html#cb59-18"></a><span class="bu">print</span>(np.mean(accuracies))</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb60-1"><a href="interuservariance.html#cb60-1" tabindex="-1"></a><span class="co">#&gt;&gt; 0.7779597028872323</span></span></code></pre></div>
 <p>The following code performs a leave-one-user-out evaluation. That is, it trains user-independent models. The <code>LeaveOneGroupOut</code> validator splits the data such that all instances in the training set are part of all groups except one. In this case, the group corresponds to the user id. That is, each user belongs to their own group.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb58-1"><a href="interuservariance.html#cb58-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> LeaveOneGroupOut</span>
-<span id="cb58-2"><a href="interuservariance.html#cb58-2"></a></span>
-<span id="cb58-3"><a href="interuservariance.html#cb58-3"></a>users <span class="op">=</span> df[<span class="st">&quot;user&quot;</span>].values</span>
-<span id="cb58-4"><a href="interuservariance.html#cb58-4"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">&#39;class&#39;</span>,<span class="st">&#39;user&#39;</span>]).values</span>
-<span id="cb58-5"><a href="interuservariance.html#cb58-5"></a>y <span class="op">=</span> df[<span class="st">&quot;class&quot;</span>].values</span>
-<span id="cb58-6"><a href="interuservariance.html#cb58-6"></a>valscheme <span class="op">=</span> LeaveOneGroupOut()</span>
-<span id="cb58-7"><a href="interuservariance.html#cb58-7"></a>accuracies <span class="op">=</span> []</span>
-<span id="cb58-8"><a href="interuservariance.html#cb58-8"></a></span>
-<span id="cb58-9"><a href="interuservariance.html#cb58-9"></a><span class="cf">for</span> train_indx, test_indx <span class="kw">in</span> valscheme.split(X, y, groups <span class="op">=</span> users):</span>
-<span id="cb58-10"><a href="interuservariance.html#cb58-10"></a>    X_train <span class="op">=</span> X[train_indx]</span>
-<span id="cb58-11"><a href="interuservariance.html#cb58-11"></a>    y_train <span class="op">=</span> y[train_indx]</span>
-<span id="cb58-12"><a href="interuservariance.html#cb58-12"></a>    X_test <span class="op">=</span> X[test_indx]</span>
-<span id="cb58-13"><a href="interuservariance.html#cb58-13"></a>    y_test <span class="op">=</span> y[test_indx]</span>
-<span id="cb58-14"><a href="interuservariance.html#cb58-14"></a>    rf <span class="op">=</span> RandomForestClassifier(random_state <span class="op">=</span> <span class="dv">123</span>)</span>
-<span id="cb58-15"><a href="interuservariance.html#cb58-15"></a>    rf.fit(X_train, y_train)</span>
-<span id="cb58-16"><a href="interuservariance.html#cb58-16"></a>    predictions <span class="op">=</span> rf.predict(X_test)</span>
-<span id="cb58-17"><a href="interuservariance.html#cb58-17"></a>    accuracies.append(accuracy_score(y_test, predictions))</span>
-<span id="cb58-18"><a href="interuservariance.html#cb58-18"></a></span>
-<span id="cb58-19"><a href="interuservariance.html#cb58-19"></a><span class="bu">print</span>(np.mean(accuracies))</span></code></pre></div>
-<div class="sourceCode" id="cb59"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb59-1"><a href="interuservariance.html#cb59-1" tabindex="-1"></a><span class="co">#&gt;&gt; 0.733555027660476</span></span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb61-1"><a href="interuservariance.html#cb61-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> LeaveOneGroupOut</span>
+<span id="cb61-2"><a href="interuservariance.html#cb61-2"></a></span>
+<span id="cb61-3"><a href="interuservariance.html#cb61-3"></a>users <span class="op">=</span> df[<span class="st">&quot;user&quot;</span>].values</span>
+<span id="cb61-4"><a href="interuservariance.html#cb61-4"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">&#39;class&#39;</span>,<span class="st">&#39;user&#39;</span>]).values</span>
+<span id="cb61-5"><a href="interuservariance.html#cb61-5"></a>y <span class="op">=</span> df[<span class="st">&quot;class&quot;</span>].values</span>
+<span id="cb61-6"><a href="interuservariance.html#cb61-6"></a>valscheme <span class="op">=</span> LeaveOneGroupOut()</span>
+<span id="cb61-7"><a href="interuservariance.html#cb61-7"></a>accuracies <span class="op">=</span> []</span>
+<span id="cb61-8"><a href="interuservariance.html#cb61-8"></a></span>
+<span id="cb61-9"><a href="interuservariance.html#cb61-9"></a><span class="cf">for</span> train_indx, test_indx <span class="kw">in</span> valscheme.split(X, y, groups <span class="op">=</span> users):</span>
+<span id="cb61-10"><a href="interuservariance.html#cb61-10"></a>    X_train <span class="op">=</span> X[train_indx]</span>
+<span id="cb61-11"><a href="interuservariance.html#cb61-11"></a>    y_train <span class="op">=</span> y[train_indx]</span>
+<span id="cb61-12"><a href="interuservariance.html#cb61-12"></a>    X_test <span class="op">=</span> X[test_indx]</span>
+<span id="cb61-13"><a href="interuservariance.html#cb61-13"></a>    y_test <span class="op">=</span> y[test_indx]</span>
+<span id="cb61-14"><a href="interuservariance.html#cb61-14"></a>    rf <span class="op">=</span> RandomForestClassifier(random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb61-15"><a href="interuservariance.html#cb61-15"></a>    rf.fit(X_train, y_train)</span>
+<span id="cb61-16"><a href="interuservariance.html#cb61-16"></a>    predictions <span class="op">=</span> rf.predict(X_test)</span>
+<span id="cb61-17"><a href="interuservariance.html#cb61-17"></a>    accuracies.append(accuracy_score(y_test, predictions))</span>
+<span id="cb61-18"><a href="interuservariance.html#cb61-18"></a></span>
+<span id="cb61-19"><a href="interuservariance.html#cb61-19"></a><span class="bu">print</span>(np.mean(accuracies))</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb62-1"><a href="interuservariance.html#cb62-1" tabindex="-1"></a><span class="co">#&gt;&gt; 0.733555027660476</span></span></code></pre></div>
 <p>Here, you can see that the accuracy significantly dropped with the user-independent models, thus, providing a better estimate on the expected performance with unknown users.</p>
 </br>
 

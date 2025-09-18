@@ -22,6 +22,8 @@ fig:one-hot-enconding
 fig:income-head
 fig:income-head-2
 fig:income-head-3
+eq:wassersteinDistance
+fig:data-drift-comparison
 fig:louo
 notunderstandingdata
 trainperformance

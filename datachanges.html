@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-09-05" />
+<meta name="date" content="2025-09-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -238,8 +238,64 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="datachanges" class="section level1 hasAnchor" number="15">
 <h1><span class="header-section-number">Mistake 15:</span> Forgetting that data changes over time<a href="datachanges.html#datachanges" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Chapter under construction…</p>
 
+<div class="rmdmistake">
+Forgetting that data changes over time can impact the performance of your models in production.
+</div>
+<p></br></p>
+<p>Deploying a model is not the final step in a machine learning pipeline. Data is changing all the time and as a consequence, the model you trained today may not perform the same tomorrow (or even in the same day). Take for example a classifier that predicts if e-mail messages are spam or not. Everyday, spammers develop new tactics to circumvent spam detection systems by modifying the messages’ contents and meta-data. Thus, in order to keep the classifiers up to date, they need to be retrained frequently so they are able to learn the new patterns of spam messages. These types of changes are present in almost any system. The weather conditions change due to global warming, companies’ sales change when introducing new products, sensors’ data deviate due to vibrations, and so on. Thus, after deploying a model, some mechanisms should be implemented to monitor its behavior and if data deviations are detected, apply corrections. In machine learning, <em>data drift</em> refers to the change in statistical properties over time of the features and/or response variables (labels, or values for regression).</p>
+<p>There are three main types of data drift.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Covariate drift.</strong> This happens when the distribution (for example, the average) of features changes over time.</p></li>
+<li><p><strong>Prior probability drift.</strong> This can happen when the distribution of the response variable changes. For example, an increase in the proportion of spam messages compared to the previous year.</p></li>
+<li><p><strong>Concept drift.</strong> When the relationship between features and the response variable changes over time.</p></li>
+</ol>
+<p>Detecting those changes include strategies like monitoring variable distributions, statistical tests, using auto-encoders, and so on. Once a change is detected, the model can be retrained or adapted. The topic of data drift is very extensive and encompasses a broad range of techniques for monitoring and adaptation. The interested reader is referred to these reviews on the topic <span class="citation">(<a href="#ref-lu2018learning">Lu et al. 2018</a>)</span> and <span class="citation">(<a href="#ref-gama2014survey">Gama et al. 2014</a>)</span>.</p>
+<p>One of the most common techniques to detect data drift in numeric features is the <em>Wasserstein distance</em>. Intuitively, it measures the required effort to transform one distribution into another.</p>
+<p><span class="math display" id="eq:wassersteinDistance">\[\begin{equation}
+  W(P, Q) = \int_{-\infty}^{\infty} \left| F_P(x) - F_Q(x) \right| \, dx
+  \tag{15.1}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(F_P(x)\)</span> and <span class="math inline">\(F_Q(x)\)</span> are the cumulative distribution functions.</p>
+<p>The following code generates an array (<code>reference_data</code>) of size <span class="math inline">\(1000\)</span> with random values drawn from a normal distribution with mean <span class="math inline">\(0\)</span> and a standard deviation of <span class="math inline">\(1\)</span>. To simulate data drift, a second array (<code>new_data</code>) is randomly generated, but this time the mean is <span class="math inline">\(1.5\)</span> instead of <span class="math inline">\(0\)</span>.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb56-1"><a href="datachanges.html#cb56-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb56-2"><a href="datachanges.html#cb56-2"></a><span class="im">from</span> scipy.stats <span class="im">import</span> wasserstein_distance</span>
+<span id="cb56-3"><a href="datachanges.html#cb56-3"></a></span>
+<span id="cb56-4"><a href="datachanges.html#cb56-4"></a><span class="co"># Set random seed for reproducibility</span></span>
+<span id="cb56-5"><a href="datachanges.html#cb56-5"></a>np.random.seed(<span class="dv">123</span>)</span>
+<span id="cb56-6"><a href="datachanges.html#cb56-6"></a></span>
+<span id="cb56-7"><a href="datachanges.html#cb56-7"></a><span class="co"># Generate example data.</span></span>
+<span id="cb56-8"><a href="datachanges.html#cb56-8"></a>reference_data <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="dv">0</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb56-9"><a href="datachanges.html#cb56-9"></a>new_data <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="fl">1.5</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">1000</span>)</span></code></pre></div>
+<p>Figure <a href="datachanges.html#fig:data-drift-comparison">15.1</a> shows the distribution of the two arrays. While the reference data is centered at <span class="math inline">\(0\)</span>, the mean of the new data ‘moved’ to the right approximately <span class="math inline">\(1.5\)</span> units.</p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:data-drift-comparison"></span>
+<img src="images/data-drift-comparison.png" alt="Comparison of the distribution between the reference and new data." width="50%" />
+<p class="caption">
+Figure 15.1: Comparison of the distribution between the reference and new data.
+</p>
+</div>
+<p>The following code uses the <code>wasserstein_distance()</code> function from the <code>scipy</code> library to compute the Wasserstein distance between the two arrays.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb57-1"><a href="datachanges.html#cb57-1"></a><span class="co"># Calculate Wasserstein Distance.</span></span>
+<span id="cb57-2"><a href="datachanges.html#cb57-2"></a>distance <span class="op">=</span> wasserstein_distance(reference_data, new_data)</span>
+<span id="cb57-3"><a href="datachanges.html#cb57-3"></a><span class="bu">print</span>(<span class="ss">f&quot;Wasserstein Distance: </span><span class="sc">{</span>distance<span class="sc">:.4f}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb58-1"><a href="datachanges.html#cb58-1" tabindex="-1"></a><span class="co">#&gt;&gt; Wasserstein Distance: 1.5480</span></span></code></pre></div>
+<p>Here, you can see that the distance is <span class="math inline">\(1.5480\)</span>. The closest to zero, the smaller the data drift. In this example the data drift was considerable. Based on this distance, you can decide if your model needs to be retrained. The threshold to decide if retraining is required will depend on your specific application. You can try changing the <code>loc</code> and <code>scale</code> parameters in <code>new_data = np.random.normal(loc=1.5, scale=1, size=1000)</code> and see how the Wasserstein distance changes accordingly.</p>
+</br>
+
+<div class="rmdsolution">
+It is a good practice to monitor your system for data drift and implement measures to combat it, for example, by retraining your models.
+</div>
+
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-gama2014survey" class="csl-entry">
+Gama, João, Indrė Žliobaitė, Albert Bifet, Mykola Pechenizkiy, and Abdelhamid Bouchachia. 2014. <span>“A Survey on Concept Drift Adaptation.”</span> <em>ACM Computing Surveys (CSUR)</em> 46 (4): 1–37.
+</div>
+<div id="ref-lu2018learning" class="csl-entry">
+Lu, Jie, Anjin Liu, Fan Dong, Feng Gu, Joao Gama, and Guangquan Zhang. 2018. <span>“Learning Under Concept Drift: A Review.”</span> <em>IEEE Transactions on Knowledge and Data Engineering</em> 31 (12): 2346–63.
+</div>
 </div>
             </section>
 

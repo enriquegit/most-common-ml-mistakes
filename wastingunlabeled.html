@@ -23,7 +23,7 @@
 <meta name="author" content="Enrique Garcia Ceja" />
 
 
-<meta name="date" content="2025-09-05" />
+<meta name="date" content="2025-09-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -238,12 +238,82 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="wastingunlabeled" class="section level1 hasAnchor" number="17">
 <h1><span class="header-section-number">Mistake 17:</span> Wasting unlabeled data<a href="wastingunlabeled.html#wastingunlabeled" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Chapter under construction…</p>
+
+<div class="rmdmistake">
+Not using unlabeled data to train a model can lead to a missing opportunity to improve performance.
+</div>
+<p></br></p>
+<p>In many applications it becomes difficult to label data but it is relatively easy to collect unlabeled data. For example, a huge amount of data from internet network traffic is generated every second. However, labeling it as legitimate or malicious may involve human manual inspection. This is where <em>semi-supervised learning (SSL)</em> methods come into play. SSL is ideal when only a small proportion of the data is labeled but still, there are tons of unlabeled examples. With classic supervised learning methods that only rely on fully labeled data, the remaining unlabeled data are discarded (wasted).</p>
+<p>SSL algorithms not only try to learn from labeled data but also from unlabeled examples. While there exist many SSL methods <span class="citation">(<a href="#ref-van2020survey">Van Engelen and Hoos 2020</a>)</span>, here, I will focus in one of the simplest ones: <em>self-learning</em>. This algorithm starts with a base classifier and trains it with the available labeled data as usual. Then, the base classifier is used to predict the labels of the unlabeled instances. These are typically called <em>pseudo-labels</em>. Based on some criteria, the best instances along with their pseudo-labels are added to the original training set and the base model is retrained. This process is repeated until some stop condition is met. For example, when the unlabeled data is exhausted or no new instances were added in the last iteration. The criterion for choosing the best instances can be to select the top-<span class="math inline">\(k\)</span> based on their prediction score. Another criterion is to select all instances whose prediction score was above a given threshold.</p>
+<p>SSL classifiers depend on a set of assumptions <span class="citation">(<a href="#ref-van2020survey">Van Engelen and Hoos 2020</a>)</span>. One of them is that the unlabeled instances correspond to examples with the same labels and distribution as those contained in the training set. The <em>smoothness assumption</em> states that if two instances are close in the feature space, they should belong to the same class. The <em>low-density assumption</em> says that the decision boundaries of a model should pass through low-density regions and the <em>manifold assumption</em> that instances on the same lower-dimension space should belong to the same class.</p>
+<p>To demonstrate the use of self-learning, we will use the <em>DIGITS</em> dataset. First, we load it into memory and split it into train and test sets (50/50). If we print the shape of the train set, we see that it has <span class="math inline">\(898\)</span> instances.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb63-1"><a href="wastingunlabeled.html#cb63-1"></a>data <span class="op">=</span> load_digits()</span>
+<span id="cb63-2"><a href="wastingunlabeled.html#cb63-2"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(data.data,</span>
+<span id="cb63-3"><a href="wastingunlabeled.html#cb63-3"></a>                                                    data.target,</span>
+<span id="cb63-4"><a href="wastingunlabeled.html#cb63-4"></a>                                                    test_size <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span id="cb63-5"><a href="wastingunlabeled.html#cb63-5"></a>                                                    random_state <span class="op">=</span> <span class="dv">1234</span>)</span>
+<span id="cb63-6"><a href="wastingunlabeled.html#cb63-6"></a><span class="bu">print</span>(X_train.shape)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb64-1"><a href="wastingunlabeled.html#cb64-1" tabindex="-1"></a><span class="co">#&gt;&gt; (898, 64)</span></span></code></pre></div>
+<p>We will simulate that only <span class="math inline">\(100\)</span> instances are labeled and the rest (<span class="math inline">\(798\)</span>) will be unlabeled. To instruct the semi-supervised methods in scikit-learn that an instance is unlabeled, we need to set its label to <span class="math inline">\(-1\)</span>. The following code sets the label of the first <span class="math inline">\(798\)</span> instances to <span class="math inline">\(-1\)</span>. The last instances will be the labeled ones.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb65-1"><a href="wastingunlabeled.html#cb65-1"></a>unlabeled <span class="op">=</span> <span class="dv">798</span> <span class="co"># Number of unlabeled instances.</span></span>
+<span id="cb65-2"><a href="wastingunlabeled.html#cb65-2"></a></span>
+<span id="cb65-3"><a href="wastingunlabeled.html#cb65-3"></a><span class="co"># Set first n instances as unlabeled.</span></span>
+<span id="cb65-4"><a href="wastingunlabeled.html#cb65-4"></a>y_train[:unlabeled] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb65-5"><a href="wastingunlabeled.html#cb65-5"></a></span>
+<span id="cb65-6"><a href="wastingunlabeled.html#cb65-6"></a><span class="co"># Check that the first n instances are unlabeled.</span></span>
+<span id="cb65-7"><a href="wastingunlabeled.html#cb65-7"></a><span class="bu">print</span>(y_train)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb66-1"><a href="wastingunlabeled.html#cb66-1" tabindex="-1"></a><span class="co">#&gt;&gt; [-1 -1 -1 -1 -1 -1 -1 -1 -1 ... 5  0  9  2  9]</span></span></code></pre></div>
+<p>In this example we will use a <code>RandomForest</code> as the base model. Then, we instantiate a <code>SelfTrainingClassifier</code> object that implements the self-learning approach. The first parameter is the base model (a random forest in this case). The <code>threshold</code> specifies the minimum prediction score for an instance to be added to the train set. The <code>verbose</code> parameter specifies if additional information is printed to the console when fitting the model. In this case we set it to <code>True</code> because we want to analyze that information.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb67-1"><a href="wastingunlabeled.html#cb67-1"></a>rf <span class="op">=</span> RandomForestClassifier(n_estimators <span class="op">=</span> <span class="dv">50</span>, random_state <span class="op">=</span> <span class="dv">123</span>)</span>
+<span id="cb67-2"><a href="wastingunlabeled.html#cb67-2"></a>ss_model <span class="op">=</span> SelfTrainingClassifier(rf, threshold <span class="op">=</span> <span class="fl">0.95</span>, verbose <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb67-3"><a href="wastingunlabeled.html#cb67-3"></a>ss_model.fit(X_train, y_train)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb68-1"><a href="wastingunlabeled.html#cb68-1" tabindex="-1"></a><span class="co">#&gt;&gt; End of iteration 1, added 1 new labels. </span></span>
+<span id="cb68-2"><a href="wastingunlabeled.html#cb68-2" tabindex="-1"></a><span class="co">#&gt;&gt; End of iteration 2, added 1 new labels.</span></span>
+<span id="cb68-3"><a href="wastingunlabeled.html#cb68-3" tabindex="-1"></a><span class="co">#&gt;&gt; End of iteration 3, added 2 new labels.</span></span>
+<span id="cb68-4"><a href="wastingunlabeled.html#cb68-4" tabindex="-1"></a><span class="co">#&gt;&gt; End of iteration 4, added 3 new labels.</span></span>
+<span id="cb68-5"><a href="wastingunlabeled.html#cb68-5" tabindex="-1"></a><span class="co">#&gt;&gt; End of iteration 5, added 5 new labels.</span></span></code></pre></div>
+<p>By looking at the output, we can see that in the first iteration <span class="math inline">\(1\)</span> new instance was added to the train set. This instance was the only one that met the threshold criteria specified as an argument. In the fourth iteration, <span class="math inline">\(3\)</span> instances were added. By default, the maximum iterations are set to <span class="math inline">\(10\)</span> but this can be specified with the <code>max_iter</code> parameter. The algorithm stopped at the fifth iteration since no new predictions achieved a score of <span class="math inline">\(0.95\)</span> or more.</p>
+<p>Now that the self-training procedure is complete, a performance report can be generated on the test set.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode numberSource python numberLines"><code class="sourceCode python"><span id="cb69-1"><a href="wastingunlabeled.html#cb69-1"></a>y_pred <span class="op">=</span> ss_model.predict(X_test)</span>
+<span id="cb69-2"><a href="wastingunlabeled.html#cb69-2"></a><span class="bu">print</span>(classification_report(y_test, y_pred))</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode python python-output"><code class="sourceCode python"><span id="cb70-1"><a href="wastingunlabeled.html#cb70-1" tabindex="-1"></a><span class="co">#&gt;&gt;               precision    recall  f1-score   support</span></span>
+<span id="cb70-2"><a href="wastingunlabeled.html#cb70-2" tabindex="-1"></a><span class="co">#&gt;&gt;</span></span>
+<span id="cb70-3"><a href="wastingunlabeled.html#cb70-3" tabindex="-1"></a><span class="co">#&gt;&gt;           0       0.93      0.97      0.95        79</span></span>
+<span id="cb70-4"><a href="wastingunlabeled.html#cb70-4" tabindex="-1"></a><span class="co">#&gt;&gt;           1       0.78      0.91      0.84        93</span></span>
+<span id="cb70-5"><a href="wastingunlabeled.html#cb70-5" tabindex="-1"></a><span class="co">#&gt;&gt;           2       0.85      0.95      0.90        86</span></span>
+<span id="cb70-6"><a href="wastingunlabeled.html#cb70-6" tabindex="-1"></a><span class="co">#&gt;&gt;           3       0.90      0.90      0.90        94</span></span>
+<span id="cb70-7"><a href="wastingunlabeled.html#cb70-7" tabindex="-1"></a><span class="co">#&gt;&gt;           4       0.97      0.92      0.94       107</span></span>
+<span id="cb70-8"><a href="wastingunlabeled.html#cb70-8" tabindex="-1"></a><span class="co">#&gt;&gt;           5       0.87      0.79      0.83       102</span></span>
+<span id="cb70-9"><a href="wastingunlabeled.html#cb70-9" tabindex="-1"></a><span class="co">#&gt;&gt;           6       0.95      0.94      0.95        88</span></span>
+<span id="cb70-10"><a href="wastingunlabeled.html#cb70-10" tabindex="-1"></a><span class="co">#&gt;&gt;           7       0.89      0.93      0.91        88</span></span>
+<span id="cb70-11"><a href="wastingunlabeled.html#cb70-11" tabindex="-1"></a><span class="co">#&gt;&gt;           8       0.98      0.56      0.71        82</span></span>
+<span id="cb70-12"><a href="wastingunlabeled.html#cb70-12" tabindex="-1"></a><span class="co">#&gt;&gt;           9       0.70      0.85      0.77        80</span></span>
+<span id="cb70-13"><a href="wastingunlabeled.html#cb70-13" tabindex="-1"></a></span>
+<span id="cb70-14"><a href="wastingunlabeled.html#cb70-14" tabindex="-1"></a><span class="co">#&gt;&gt;    accuracy                           0.88       899</span></span>
+<span id="cb70-15"><a href="wastingunlabeled.html#cb70-15" tabindex="-1"></a><span class="co">#&gt;&gt;   macro avg       0.88      0.87      0.87       899</span></span>
+<span id="cb70-16"><a href="wastingunlabeled.html#cb70-16" tabindex="-1"></a><span class="co">#&gt;&gt;weighted avg       0.89      0.88      0.87       899</span></span></code></pre></div>
+<p>The overall classification performance using only <span class="math inline">\(100\)</span> instances in the train set was <span class="math inline">\(0.88\)</span> which is not bad. If we follow a traditional supervised learning approach (see accompanying code) which is only able to use the labeled instances, the accuracy drops to <span class="math inline">\(0.85\)</span>.</p>
+
+<div class="rmdcaution">
+You should always be cautious when using semi-supervised learning methods. If the underlying model generates poor predictions or the required assumptions are not met, the errors can propagate causing a drop in performance.
+</div>
+<p>While in this example there was a performance gain when using a semi-supervised approach, this also depends on the chosen parameters. For example, if the decision threshold is decreased, erroneous labels will make its way into the train set and as a consequence, the performance of the model will decrease.</p>
+</br>
+
+<div class="rmdsolution">
+Semi-supervised learning methods can be used to learn from unlabeled examples in settings where labeled data is scarse. Scikit-learn implements some approaches like <code>SelfTrainingClassifier</code> and <code>LabelPropagation</code> for SSL classification tasks.
+</div>
 
 </div>
 
 
 
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-van2020survey" class="csl-entry">
+Van Engelen, Jesper E, and Holger H Hoos. 2020. <span>“A Survey on Semi-Supervised Learning.”</span> <em>Machine Learning</em> 109 (2): 373–440.
+</div>
+</div>
             </section>
 
           </div>
